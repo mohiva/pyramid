@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="./tests/com/mohiva/test/pyramid/Bootstrap.php"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	stopOnFailure="true">
+	
+	<logging>
+		<log type="coverage-clover" target="/tmp/clover.xml" />
+	</logging>
+	
+</phpunit>

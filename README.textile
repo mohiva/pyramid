@@ -1,0 +1,11 @@
+h2. About
+
+The Mohiva Pyramid project is an operator precedence parser based on the "Precedence climbing" algorithm.
+
+This project is Open Source and released under the terms of the New BSD License.
+
+h2. Links
+
+http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm#climbing
+http://en.wikipedia.org/wiki/Operator-precedence_parser
+http://en.wikipedia.org/wiki/Interpreter_pattern
