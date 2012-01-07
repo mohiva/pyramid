@@ -1,6 +1,42 @@
 h2. About
 
-The Mohiva Pyramid project is an operator precedence parser based on the "Precedence climbing" algorithm.
+The Mohiva Pyramid project is an "operator precedence parser":http://en.wikipedia.org/wiki/Operator-precedence_parser 
+based on the "Precedence climbing":http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm#climbing algorithm described by 
+"Theodore Norvell":http://www.engr.mun.ca/~theo/.
+
+h2. How to use
+
+The library comes with an "example":mohiva/pyramid/tree/master/src/com/mohiva/pyramid/example of how
+to use it.
+
+This example uses a simple "grammar":https://github.com/mohiva/pyramid/blob/master/src/com/mohiva/pyramid/example/Grammar.php.
+It's a very simple calculator with the following precedence table.
+
+|\3 Unary          |
+| - | Negative | 3 |
+| + | Positive | 3 |
+
+|\4 Binary                                   |
+| + | Addition       | 0 | left associative  |
+| - | Subtraction    | 0 | left associative  |
+| * | Multiplication | 1 | left associative  |
+| / | Division       | 1 | left associative  |
+| % | Modulo         | 1 | left associative  |
+| ^ | Power          | 2 | right associative |
+
+The calculator can deal with "parentheses":https://github.com/mohiva/pyramid/blob/master/src/com/mohiva/pyramid/example/operands/ParenthesesOperand.php, 
+"integer and floating-point values":https://github.com/mohiva/pyramid/blob/master/src/com/mohiva/pyramid/example/operands/NumberOperand.php.
+
+So lets talk about the steps to create create your own language.
+1. Create your grammar and your precedence table
+2. Create a "Lexer":https://github.com/mohiva/pyramid/blob/master/src/com/mohiva/pyramid/example/Lexer.php class to 
+tokenize your input
+3. Create your "nodes":https://github.com/mohiva/pyramid/tree/master/src/com/mohiva/pyramid/example/nodes and "operands":https://github.com/mohiva/pyramid/tree/master/src/com/mohiva/pyramid/example/operands
+4. Parse it
+
+
+
+h2. License
 
 This project is Open Source and released under the terms of the New BSD License.
 
