@@ -26,7 +26,7 @@ So lets talk about the steps to create your own language.
 3. Create your "nodes":pyramid/tree/master/src/com/mohiva/pyramid/example/nodes and "operands":pyramid/tree/master/src/com/mohiva/pyramid/example/operands
 4. Parse it
 
-```php
+<pre lang="php">
 <?php
 
 use com\mohiva\pyramid\Parser;
@@ -41,7 +41,7 @@ $parser = new Parser(new Grammar());
 $node = $parser->parse($stream);
 
 $node->evaluate();
-```
+</pre>
 
 h2. License
 
