@@ -2,6 +2,22 @@ h2. About
 
 The Mohiva Pyramid project is an "operator precedence parser":http://en.wikipedia.org/wiki/Operator-precedence_parser based on the "Precedence climbing":http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm#climbing algorithm described by "Theodore Norvell":http://www.engr.mun.ca/~theo/.
 
+h2. Installation
+
+As first you must clone the repository.
+
+<pre lang="sh">
+git clone git://github.com/mohiva/pyramid.git
+</pre>
+
+Then you must fetch the dependencies.
+
+<pre lang="sh">
+cd pyramid
+git submodule init
+git submodule update
+</pre>
+
 h2. How to use
 
 The library comes with an "example":pyramid/tree/master/src/com/mohiva/pyramid/example of how to use it. This example uses a simple "grammar":pyramid/blob/master/src/com/mohiva/pyramid/example/Grammar.php. It's a very simple calculator with the following precedence table.
@@ -16,7 +32,7 @@ The library comes with an "example":pyramid/tree/master/src/com/mohiva/pyramid/e
 | * | Multiplication | 1 | left associative  |
 | / | Division       | 1 | left associative  |
 | % | Modulo         | 1 | left associative  |
-| ^ | Power          | 2 | right associative |
+| ^ | Exponentiation | 2 | right associative |
 
 The calculator can deal with "parentheses":pyramid/blob/master/src/com/mohiva/pyramid/example/operands/ParenthesesOperand.php, "integer and floating-point values":pyramid/blob/master/src/com/mohiva/pyramid/example/operands/NumberOperand.php.
 
