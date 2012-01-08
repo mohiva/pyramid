@@ -1,11 +1,68 @@
 h2. About
 
-The Mohiva Pyramid project is an operator precedence parser based on the "Precedence climbing" algorithm.
+The Mohiva Pyramid project is an "operator precedence parser":http://en.wikipedia.org/wiki/Operator-precedence_parser based on the "Precedence climbing":http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm#climbing algorithm described by "Theodore Norvell":http://www.engr.mun.ca/~theo/.
+
+h2. Installation
+
+As first you must clone the repository.
+
+<pre lang="sh">
+git clone git://github.com/mohiva/pyramid.git
+</pre>
+
+Then you must fetch the dependencies.
+
+<pre lang="sh">
+cd pyramid
+git submodule init
+git submodule update
+</pre>
+
+h2. Requirements
+
+Mohiva Pyramid needs PHP 5.4 to work.
+
+h2. How to use
+
+The library comes with an "example":pyramid/tree/master/src/com/mohiva/pyramid/example of how to use it. This example uses a simple "grammar":pyramid/blob/master/src/com/mohiva/pyramid/example/Grammar.php. It's a very simple calculator with the following precedence table.
+
+|\3. Unary         |
+| - | Negative | 3 |
+| + | Positive | 3 |
+
+|\4. Binary                                  |
+| + | Addition       | 0 | left associative  |
+| - | Subtraction    | 0 | left associative  |
+| * | Multiplication | 1 | left associative  |
+| / | Division       | 1 | left associative  |
+| % | Modulo         | 1 | left associative  |
+| ^ | Exponentiation | 2 | right associative |
+
+The calculator can deal with "parentheses":pyramid/blob/master/src/com/mohiva/pyramid/example/operands/ParenthesesOperand.php, "integer and floating-point values":pyramid/blob/master/src/com/mohiva/pyramid/example/operands/NumberOperand.php.
+
+So lets talk about the steps to create your own language.
+1. Create your grammar and your precedence table
+2. Create a "Lexer":pyramid/blob/master/src/com/mohiva/pyramid/example/Lexer.php class to tokenize your input
+3. Create your "nodes":pyramid/tree/master/src/com/mohiva/pyramid/example/nodes and "operands":pyramid/tree/master/src/com/mohiva/pyramid/example/operands
+4. Parse it
+
+<pre lang="php">
+<?php
+
+use com\mohiva\pyramid\Parser;
+use com\mohiva\pyramid\example\Lexer;
+use com\mohiva\pyramid\example\Grammar;
+use com\mohiva\common\parser\TokenStream;
+
+$lexer = new Lexer(new TokenStream);
+$stream = $lexer->scan('1.1 + 1.5');
+
+$parser = new Parser(new Grammar());
+$node = $parser->parse($stream);
+
+$node->evaluate();
+</pre>
+
+h2. License
 
 This project is Open Source and released under the terms of the New BSD License.
-
-h2. Links
-
-http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm#climbing
-http://en.wikipedia.org/wiki/Operator-precedence_parser
-http://en.wikipedia.org/wiki/Interpreter_pattern

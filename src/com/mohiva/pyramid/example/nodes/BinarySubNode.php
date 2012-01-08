@@ -21,7 +21,7 @@ namespace com\mohiva\pyramid\example\nodes;
 use com\mohiva\pyramid\nodes\OperatorNode;
 
 /**
- * Represents an binary plus.
+ * Represents an binary subtraction.
  * 
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Example/Nodes
@@ -30,7 +30,7 @@ use com\mohiva\pyramid\nodes\OperatorNode;
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-class BinaryPlusNode extends OperatorNode {
+class BinarySubNode extends OperatorNode {
 	
 	/**
 	 * Evaluates the node.
@@ -39,6 +39,6 @@ class BinaryPlusNode extends OperatorNode {
 	 */
 	public function evaluate() {
 		
-		return $this->left->evaluate() + $this->right->evaluate();
+		return $this->left->evaluate() - $this->right->evaluate();
 	}
 }

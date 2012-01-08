@@ -10,7 +10,7 @@
  * https://github.com/mohiva/pyramid/blob/master/LICENSE.textile
  *
  * @category  Mohiva/Pyramid
- * @package   Mohiva/Pyramid/Example/Nodes
+ * @package   Mohiva/Pyramid/Example/Operands
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
@@ -27,10 +27,10 @@ use com\mohiva\pyramid\Grammar;
 use com\mohiva\pyramid\Operand;
 
 /**
- * Represents an binary division.
+ * Operand which parses expressions between parentheses.
  * 
  * @category  Mohiva/Pyramid
- * @package   Mohiva/Pyramid/Example/Nodes
+ * @package   Mohiva/Pyramid/Example/Operands
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
@@ -39,34 +39,20 @@ use com\mohiva\pyramid\Operand;
 class ParenthesesOperand implements Operand {
 	
 	/**
-	 * The identifiers for this operand.
-	 * 
-	 * @var array
-	 */
-	private $identifiers = array();
-	
-	/**
-	 * The class constructor.
-	 * 
-	 * @param array $identifiers The identifiers for this operand.
-	 */
-	public function __construct(array $identifiers) {
-		
-		$this->identifiers = $identifiers;
-	}
-	
-	/**
 	 * Returns the identifiers for this operand.
 	 *
 	 * @return array The identifiers for this operand.
 	 */
 	public function getIdentifiers() {
 		
-		return $this->identifiers;
+		return array(Lexer::T_OPEN_PARENTHESIS);
 	}
 	
 	/**
 	 * Parse the operand.
+	 * 
+	 * This example shows how you should parse sub expressions. You must only create a 
+	 * new parser with the passed grammar and token stream.
 	 *
 	 * @param \com\mohiva\pyramid\Grammar $grammar The grammar of the parser.
 	 * @param \com\mohiva\common\parser\TokenStream $stream The token stream to parse.

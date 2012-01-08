@@ -19,7 +19,7 @@
 namespace com\mohiva\test\pyramid\example\nodes;
 
 use com\mohiva\pyramid\example\nodes\OperandNode;
-use com\mohiva\pyramid\example\nodes\BinaryMinusNode;
+use com\mohiva\pyramid\example\nodes\BinarySubNode;
 
 /**
  * Unit test case for the Mohiva Pyramid project.
@@ -31,7 +31,7 @@ use com\mohiva\pyramid\example\nodes\BinaryMinusNode;
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-class BinaryMinusNodeTest extends \PHPUnit_Framework_TestCase {
+class BinarySubNodeTest extends \PHPUnit_Framework_TestCase {
 	
 	/**
 	 * Test if the `evaluate` method returns the correct value for the operation.
@@ -40,7 +40,7 @@ class BinaryMinusNodeTest extends \PHPUnit_Framework_TestCase {
 		
 		$left = mt_rand(1, 100);
 		$right = mt_rand(1, 100);
-		$node = new BinaryMinusNode(new OperandNode($left), new OperandNode($right));
+		$node = new BinarySubNode(new OperandNode($left), new OperandNode($right));
 		
 		$this->assertSame($left - $right, $node->evaluate());
 	}

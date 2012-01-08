@@ -36,12 +36,12 @@ class AllTests extends \PHPUnit_Framework_TestSuite {
 	public function __construct() {
 		
 		$this->setName(__CLASS__);
+		$this->addTestSuite(__NAMESPACE__ . '\BinaryAddNodeTest');
 		$this->addTestSuite(__NAMESPACE__ . '\BinaryDivNodeTest');
-		$this->addTestSuite(__NAMESPACE__ . '\BinaryMinusNodeTest');
 		$this->addTestSuite(__NAMESPACE__ . '\BinaryModNodeTest');
 		$this->addTestSuite(__NAMESPACE__ . '\BinaryMulNodeTest');
-		$this->addTestSuite(__NAMESPACE__ . '\BinaryPlusNodeTest');
 		$this->addTestSuite(__NAMESPACE__ . '\BinaryPowerNodeTest');
+		$this->addTestSuite(__NAMESPACE__ . '\BinarySubNodeTest');
 		$this->addTestSuite(__NAMESPACE__ . '\OperandNodeTest');
 		$this->addTestSuite(__NAMESPACE__ . '\UnaryNegNodeTest');
 		$this->addTestSuite(__NAMESPACE__ . '\UnaryPosNodeTest');

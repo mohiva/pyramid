@@ -21,7 +21,7 @@ namespace com\mohiva\pyramid\example\nodes;
 use com\mohiva\pyramid\nodes\OperatorNode;
 
 /**
- * Represents an binary power.
+ * Represents an binary exponentiation.
  * 
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Example/Nodes
