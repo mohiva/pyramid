@@ -10,7 +10,7 @@
  * https://github.com/mohiva/pyramid/blob/master/LICENSE.textile
  *
  * @category  Mohiva/Pyramid
- * @package   Mohiva/Pyramid/Example/Nodes
+ * @package   Mohiva/Pyramid/Example/Operands
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
@@ -19,15 +19,16 @@
 namespace com\mohiva\pyramid\example\operands;
 
 use com\mohiva\pyramid\example\nodes\OperandNode;
+use com\mohiva\pyramid\example\Lexer;
 use com\mohiva\common\parser\TokenStream;
 use com\mohiva\pyramid\Grammar;
 use com\mohiva\pyramid\Operand;
 
 /**
- * Represents an binary division.
+ * Operand which parses integer and floating-point values.
  * 
  * @category  Mohiva/Pyramid
- * @package   Mohiva/Pyramid/Example/Nodes
+ * @package   Mohiva/Pyramid/Example/Operands
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
@@ -36,30 +37,13 @@ use com\mohiva\pyramid\Operand;
 class NumberOperand implements Operand {
 	
 	/**
-	 * The identifiers for this operand.
-	 * 
-	 * @var array
-	 */
-	private $identifiers = array();
-	
-	/**
-	 * The class constructor.
-	 * 
-	 * @param array $identifiers The identifiers for this operand.
-	 */
-	public function __construct(array $identifiers) {
-		
-		$this->identifiers = $identifiers;
-	}
-	
-	/**
 	 * Returns the identifiers for this operand.
 	 *
 	 * @return array The identifiers for this operand.
 	 */
 	public function getIdentifiers() {
 		
-		return $this->identifiers;
+		return array(Lexer::T_NUMBER);
 	}
 	
 	/**

@@ -10,35 +10,38 @@
  * https://github.com/mohiva/pyramid/blob/master/LICENSE.textile
  *
  * @category  Mohiva/Pyramid
- * @package   Mohiva/Pyramid/Example/Nodes
+ * @package   Mohiva/Pyramid/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-namespace com\mohiva\pyramid\example\nodes;
+namespace com\mohiva\test\pyramid\example\nodes;
 
-use com\mohiva\pyramid\nodes\OperatorNode;
+use com\mohiva\pyramid\example\nodes\OperandNode;
+use com\mohiva\pyramid\example\nodes\BinaryAddNode;
 
 /**
- * Represents an binary minus.
+ * Unit test case for the Mohiva Pyramid project.
  * 
  * @category  Mohiva/Pyramid
- * @package   Mohiva/Pyramid/Example/Nodes
+ * @package   Mohiva/Pyramid/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-class BinaryMinusNode extends OperatorNode {
+class BinaryAddNodeTest extends \PHPUnit_Framework_TestCase {
 	
 	/**
-	 * Evaluates the node.
-	 * 
-	 * @return number The result of the evaluation.
+	 * Test if the `evaluate` method returns the correct value for the operation.
 	 */
-	public function evaluate() {
+	public function testEvaluate() {
 		
-		return $this->left->evaluate() - $this->right->evaluate();
+		$left = mt_rand(1, 100);
+		$right = mt_rand(1, 100);
+		$node = new BinaryAddNode(new OperandNode($left), new OperandNode($right));
+		
+		$this->assertSame($left + $right, $node->evaluate());
 	}
 }

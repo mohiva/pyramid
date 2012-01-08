@@ -19,20 +19,8 @@
 namespace com\mohiva\test\pyramid;
 
 use com\mohiva\pyramid\Parser;
-use com\mohiva\pyramid\Grammar;
-use com\mohiva\pyramid\operators\BinaryOperator;
-use com\mohiva\pyramid\operators\UnaryOperator;
 use com\mohiva\pyramid\example\Lexer;
-use com\mohiva\pyramid\example\nodes\UnaryPosNode;
-use com\mohiva\pyramid\example\nodes\UnaryNegNode;
-use com\mohiva\pyramid\example\nodes\BinaryPlusNode;
-use com\mohiva\pyramid\example\nodes\BinaryMinusNode;
-use com\mohiva\pyramid\example\nodes\BinaryMulNode;
-use com\mohiva\pyramid\example\nodes\BinaryDivNode;
-use com\mohiva\pyramid\example\nodes\BinaryModNode;
-use com\mohiva\pyramid\example\nodes\BinaryPowerNode;
-use com\mohiva\pyramid\example\operands\NumberOperand;
-use com\mohiva\pyramid\example\operands\ParenthesesOperand;
+use com\mohiva\pyramid\example\Grammar;
 use com\mohiva\common\parser\TokenStream;
 
 /**
@@ -55,7 +43,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$lexer = new Lexer(new TokenStream);
 		$stream = $lexer->scan('1.1 + 1.5');
 		
-		$parser = new Parser($this->getGrammar());
+		$parser = new Parser(new Grammar());
 		$node = $parser->parse($stream);
 		
 		$this->assertSame(1.1 + 1.5, $node->evaluate());
@@ -69,7 +57,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$lexer = new Lexer(new TokenStream);
 		$stream = $lexer->scan('-1.2 + 1 * 5');
 		
-		$parser = new Parser($this->getGrammar());
+		$parser = new Parser(new Grammar());
 		$node = $parser->parse($stream);
 		
 		$this->assertSame(-1.2 + 1 * 5, $node->evaluate());
@@ -83,7 +71,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$lexer = new Lexer(new TokenStream);
 		$stream = $lexer->scan('4 / -1 * 5');
 		
-		$parser = new Parser($this->getGrammar());
+		$parser = new Parser(new Grammar());
 		$node = $parser->parse($stream);
 		
 		$this->assertSame(4 / -1 * 5, $node->evaluate());
@@ -97,7 +85,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$lexer = new Lexer(new TokenStream);
 		$stream = $lexer->scan('5^-1 + -1^5');
 		
-		$parser = new Parser($this->getGrammar());
+		$parser = new Parser(new Grammar());
 		$node = $parser->parse($stream);
 		
 		$this->assertSame(pow(5, -1) + pow(-1, 5), $node->evaluate());
@@ -111,7 +99,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$lexer = new Lexer(new TokenStream);
 		$stream = $lexer->scan('-(-1.2) + 1 + (( -2 + 5) * 6 * (5 + 5))');
 		
-		$parser = new Parser($this->getGrammar());
+		$parser = new Parser(new Grammar());
 		$node = $parser->parse($stream);
 		
 		$this->assertSame(-(-1.2) + 1 + (( -2 + 5) * 6 * (5 + 5)), $node->evaluate());
@@ -125,7 +113,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$lexer = new Lexer(new TokenStream);
 		$stream = $lexer->scan('-(-1.1 + 1) * 5^6^3 / (4 / +5.568 * (2 - 8))');
 		
-		$parser = new Parser($this->getGrammar());
+		$parser = new Parser(new Grammar());
 		$node = $parser->parse($stream);
 		
 		$this->assertSame(-(-1.1 + 1) * pow(5, pow(6, 3)) / (4 / +5.568 * (2 - 8)), $node->evaluate());
@@ -141,7 +129,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$lexer = new Lexer(new TokenStream);
 		$stream = $lexer->scan('1 + 1 +');
 		
-		$parser = new Parser($this->getGrammar());
+		$parser = new Parser(new Grammar());
 		$parser->parse($stream);
 	}
 	
@@ -156,48 +144,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$lexer = new Lexer(new TokenStream);
 		$stream = $lexer->scan('1 + test');
 		
-		$parser = new Parser($this->getGrammar());
+		$parser = new Parser(new Grammar());
 		$parser->parse($stream);
-	}
-	
-	/**
-	 * Get the grammar for the parser.
-	 * 
-	 * @return \com\mohiva\pyramid\Grammar The grammar for the parser.
-	 */
-	private function getGrammar() {
-		
-		// Note: unary +/- operators must have higher precedence as all binary operators
-		// http://www.antlr.org/pipermail/antlr-dev/2009-April/002255.html
-		$grammar = new Grammar();
-		$grammar->addOperator(new UnaryOperator(Lexer::T_PLUS, 4, function($left) {
-			return new UnaryPosNode($left);
-		}));
-		$grammar->addOperator(new UnaryOperator(Lexer::T_MINUS, 4, function($left) {
-			return new UnaryNegNode($left);
-		}));
-		$grammar->addOperator(new BinaryOperator(Lexer::T_PLUS, 0, BinaryOperator::LEFT, function($left, $right) {
-			return new BinaryPlusNode($left, $right);
-		}));
-		$grammar->addOperator(new BinaryOperator(Lexer::T_MINUS, 0, BinaryOperator::LEFT, function($left, $right) {
-			return new BinaryMinusNode($left, $right);
-		}));
-		$grammar->addOperator(new BinaryOperator(Lexer::T_MUL, 1, BinaryOperator::LEFT, function($left, $right) {
-			return new BinaryMulNode($left, $right);
-		}));
-		$grammar->addOperator(new BinaryOperator(Lexer::T_DIV, 1, BinaryOperator::LEFT, function($left, $right) {
-			return new BinaryDivNode($left, $right);
-		}));
-		$grammar->addOperator(new BinaryOperator(Lexer::T_MOD, 1, BinaryOperator::LEFT, function($left, $right) {
-			return new BinaryModNode($left, $right);
-		}));
-		$grammar->addOperator(new BinaryOperator(Lexer::T_POWER, 3, BinaryOperator::RIGHT, function($left, $right) {
-			return new BinaryPowerNode($left, $right);
-		}));
-		
-		$grammar->addOperand(new NumberOperand(array(Lexer::T_NUMBER)));
-		$grammar->addOperand(new ParenthesesOperand(array(Lexer::T_OPEN_PARENTHESIS)));
-		
-		return $grammar;
 	}
 }
