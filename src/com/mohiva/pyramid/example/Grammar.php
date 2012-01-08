@@ -23,8 +23,8 @@ use com\mohiva\pyramid\operators\BinaryOperator;
 use com\mohiva\pyramid\operators\UnaryOperator;
 use com\mohiva\pyramid\example\nodes\UnaryPosNode;
 use com\mohiva\pyramid\example\nodes\UnaryNegNode;
-use com\mohiva\pyramid\example\nodes\BinaryPlusNode;
-use com\mohiva\pyramid\example\nodes\BinaryMinusNode;
+use com\mohiva\pyramid\example\nodes\BinaryAddNode;
+use com\mohiva\pyramid\example\nodes\BinarySubNode;
 use com\mohiva\pyramid\example\nodes\BinaryMulNode;
 use com\mohiva\pyramid\example\nodes\BinaryDivNode;
 use com\mohiva\pyramid\example\nodes\BinaryModNode;
@@ -60,10 +60,10 @@ class Grammar extends ParserGrammar {
 			return new UnaryNegNode($left);
 		}));
 		$this->addOperator(new BinaryOperator(Lexer::T_PLUS, 0, BinaryOperator::LEFT, function($left, $right) {
-			return new BinaryPlusNode($left, $right);
+			return new BinaryAddNode($left, $right);
 		}));
 		$this->addOperator(new BinaryOperator(Lexer::T_MINUS, 0, BinaryOperator::LEFT, function($left, $right) {
-			return new BinaryMinusNode($left, $right);
+			return new BinarySubNode($left, $right);
 		}));
 		$this->addOperator(new BinaryOperator(Lexer::T_MUL, 1, BinaryOperator::LEFT, function($left, $right) {
 			return new BinaryMulNode($left, $right);

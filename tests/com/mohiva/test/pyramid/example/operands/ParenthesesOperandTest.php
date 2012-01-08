@@ -38,17 +38,6 @@ use com\mohiva\common\parser\TokenStream;
 class ParenthesesOperandTest extends \PHPUnit_Framework_TestCase {
 	
 	/**
-	 * Test all getters for the values set with the constructor.
-	 */
-	public function testConstructorAccessors() {
-		
-		$identifiers = range(mt_rand(1, 5), mt_rand(6, 10));
-		$operand = new ParenthesesOperand($identifiers);
-		
-		$this->assertSame($identifiers, $operand->getIdentifiers());
-	}
-	
-	/**
 	 * Test if the `parse` method returns a `Node` object.
 	 */
 	public function testParseReturnsNode() {
@@ -60,9 +49,9 @@ class ParenthesesOperandTest extends \PHPUnit_Framework_TestCase {
 		$tokenStream->rewind();
 		
 		$grammar = new Grammar();
-		$grammar->addOperand(new NumberOperand(array(Lexer::T_NUMBER)));
+		$grammar->addOperand(new NumberOperand());
 		
-		$operand = new ParenthesesOperand(array(Lexer::T_OPEN_PARENTHESIS));
+		$operand = new ParenthesesOperand();
 		$node = $operand->parse($grammar, $tokenStream);
 		
 		$this->assertInstanceOf('\com\mohiva\pyramid\nodes\LeafNode', $node);
@@ -83,9 +72,9 @@ class ParenthesesOperandTest extends \PHPUnit_Framework_TestCase {
 		$tokenStream->rewind();
 		
 		$grammar = new Grammar();
-		$grammar->addOperand(new NumberOperand(array(Lexer::T_NUMBER)));
+		$grammar->addOperand(new NumberOperand());
 		
-		$operand = new ParenthesesOperand(array(Lexer::T_OPEN_PARENTHESIS));
+		$operand = new ParenthesesOperand();
 		$operand->parse($grammar, $tokenStream);
 	}
 	
@@ -103,9 +92,9 @@ class ParenthesesOperandTest extends \PHPUnit_Framework_TestCase {
 		$tokenStream->rewind();
 		
 		$grammar = new Grammar();
-		$grammar->addOperand(new NumberOperand(array(Lexer::T_NUMBER)));
+		$grammar->addOperand(new NumberOperand());
 		
-		$operand = new ParenthesesOperand(array(Lexer::T_OPEN_PARENTHESIS));
+		$operand = new ParenthesesOperand();
 		$operand->parse($grammar, $tokenStream);
 	}
 }
