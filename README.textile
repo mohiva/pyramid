@@ -18,6 +18,10 @@ git submodule init
 git submodule update
 </pre>
 
+h2. Requirements
+
+Mohiva Pyramid needs PHP 5.4 to work.
+
 h2. How to use
 
 The library comes with an "example":pyramid/tree/master/src/com/mohiva/pyramid/example of how to use it. This example uses a simple "grammar":pyramid/blob/master/src/com/mohiva/pyramid/example/Grammar.php. It's a very simple calculator with the following precedence table.
