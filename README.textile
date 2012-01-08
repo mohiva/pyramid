@@ -27,6 +27,7 @@ So lets talk about the steps to create your own language.
 4. Parse it
 
 ```php
+<?php
 
 use com\mohiva\pyramid\Parser;
 use com\mohiva\pyramid\example\Lexer;
@@ -40,7 +41,6 @@ $parser = new Parser(new Grammar());
 $node = $parser->parse($stream);
 
 $node->evaluate();
-
 ```
 
 h2. License
