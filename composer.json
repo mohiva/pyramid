@@ -1,0 +1,15 @@
+{
+    "name": "mohiva/pyramid",
+    "type": "library",
+    "description": "An operator precedence parser based on the “Precedence climbing” algorithm",
+    "keywords": ["parser", "precedence", "climbing", "operator"],
+    "homepage": "https://github.com/mohiva/pyramid",
+    "license": "New BSD",
+    "authors": [
+        {"name": "Christian Kaps", "email": "christian.kaps@mohiva.com"}
+    ],
+    "require": {
+        "php": ">=5.4",
+        "mohiva/common": "master"
+    }
+}
