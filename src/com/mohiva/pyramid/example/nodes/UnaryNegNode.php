@@ -18,7 +18,7 @@
  */
 namespace com\mohiva\pyramid\example\nodes;
 
-use com\mohiva\pyramid\nodes\OperatorNode;
+use com\mohiva\pyramid\nodes\UnaryOperatorNode;
 
 /**
  * Represents an unary negative expression.
@@ -30,7 +30,7 @@ use com\mohiva\pyramid\nodes\OperatorNode;
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-class UnaryNegNode extends OperatorNode {
+class UnaryNegNode extends UnaryOperatorNode {
 	
 	/**
 	 * Evaluates the node.
@@ -39,6 +39,6 @@ class UnaryNegNode extends OperatorNode {
 	 */
 	public function evaluate() {
 		
-		return -$this->left->evaluate();
+		return -$this->node->evaluate();
 	}
 }

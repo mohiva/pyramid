@@ -53,11 +53,11 @@ class Grammar extends ParserGrammar {
 		
 		// Note: unary +/- operators must have higher precedence as all binary operators
 		// http://www.antlr.org/pipermail/antlr-dev/2009-April/002255.html
-		$this->addOperator(new UnaryOperator(Lexer::T_PLUS, 3, function($left) {
-			return new UnaryPosNode($left);
+		$this->addOperator(new UnaryOperator(Lexer::T_PLUS, 3, function($node) {
+			return new UnaryPosNode($node);
 		}));
-		$this->addOperator(new UnaryOperator(Lexer::T_MINUS, 3, function($left) {
-			return new UnaryNegNode($left);
+		$this->addOperator(new UnaryOperator(Lexer::T_MINUS, 3, function($node) {
+			return new UnaryNegNode($node);
 		}));
 		$this->addOperator(new BinaryOperator(Lexer::T_PLUS, 0, BinaryOperator::LEFT, function($left, $right) {
 			return new BinaryAddNode($left, $right);
