@@ -54,7 +54,7 @@ class ParenthesesOperandTest extends \PHPUnit_Framework_TestCase {
 		$operand = new ParenthesesOperand();
 		$node = $operand->parse($grammar, $tokenStream);
 		
-		$this->assertInstanceOf('\com\mohiva\pyramid\nodes\LeafNode', $node);
+		$this->assertInstanceOf('\com\mohiva\pyramid\Node', $node);
 	}
 	
 	/**

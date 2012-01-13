@@ -18,7 +18,7 @@
  */
 namespace com\mohiva\pyramid\example\nodes;
 
-use com\mohiva\pyramid\nodes\OperatorNode;
+use com\mohiva\pyramid\nodes\BinaryOperatorNode;
 
 /**
  * Represents an binary division.
@@ -30,7 +30,7 @@ use com\mohiva\pyramid\nodes\OperatorNode;
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-class BinaryDivNode extends OperatorNode {
+class BinaryDivNode extends BinaryOperatorNode {
 	
 	/**
 	 * Evaluates the node.
