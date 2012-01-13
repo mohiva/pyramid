@@ -18,7 +18,7 @@
  */
 namespace com\mohiva\test\pyramid\example\operands;
 
-use \com\mohiva\pyramid\example\Lexer;
+use com\mohiva\pyramid\example\Lexer;
 use com\mohiva\pyramid\Grammar;
 use com\mohiva\pyramid\Token;
 use com\mohiva\pyramid\example\operands\ParenthesesOperand;
