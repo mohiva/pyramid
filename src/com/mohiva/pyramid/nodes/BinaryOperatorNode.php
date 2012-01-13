@@ -21,10 +21,9 @@ namespace com\mohiva\pyramid\nodes;
 use com\mohiva\pyramid\Node;
 
 /**
- * Represents an operator node.
+ * Represents a binary operator node.
  * 
- * A operator node can be the root node or a node which can contain a left and 
- * a right node. This nodes can be either a operator node or a leaf node.
+ * A binary operator has a left and a right child node.
  * 
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Nodes
@@ -33,17 +32,17 @@ use com\mohiva\pyramid\Node;
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-abstract class OperatorNode implements Node {
+abstract class BinaryOperatorNode implements Node {
 	
 	/**
-	 * The left node.
+	 * The left child node.
 	 * 
 	 * @var \com\mohiva\pyramid\Node
 	 */
 	protected $left = null;
 	
 	/**
-	 * The right node.
+	 * The right child node.
 	 * 
 	 * @var \com\mohiva\pyramid\Node
 	 */
@@ -52,10 +51,10 @@ abstract class OperatorNode implements Node {
 	/**
 	 * The class constructor.
 	 * 
-	 * @param \com\mohiva\pyramid\Node|null $left The left node.
-	 * @param \com\mohiva\pyramid\Node|null $right The right node.
+	 * @param \com\mohiva\pyramid\Node $left The left child node.
+	 * @param \com\mohiva\pyramid\Node $right The right child node.
 	 */
-	public function __construct(Node $left = null, Node $right = null) {
+	public function __construct(Node $left, Node $right) {
 		
 		$this->left = $left;
 		$this->right = $right;

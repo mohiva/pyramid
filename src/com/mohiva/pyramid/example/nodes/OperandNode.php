@@ -18,7 +18,7 @@
  */
 namespace com\mohiva\pyramid\example\nodes;
 
-use com\mohiva\pyramid\nodes\LeafNode;
+use com\mohiva\pyramid\Node;
 
 /**
  * Represents an operand node.
@@ -30,7 +30,7 @@ use com\mohiva\pyramid\nodes\LeafNode;
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-class OperandNode extends LeafNode {
+class OperandNode implements Node {
 	
 	/**
 	 * The operand which this node represents.
