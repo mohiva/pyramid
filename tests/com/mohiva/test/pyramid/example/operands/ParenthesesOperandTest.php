@@ -18,7 +18,7 @@
  */
 namespace com\mohiva\test\pyramid\example\operands;
 
-use \com\mohiva\pyramid\example\Lexer;
+use com\mohiva\pyramid\example\Lexer;
 use com\mohiva\pyramid\Grammar;
 use com\mohiva\pyramid\Token;
 use com\mohiva\pyramid\example\operands\ParenthesesOperand;
@@ -61,7 +61,7 @@ class ParenthesesOperandTest extends \PHPUnit_Framework_TestCase {
 	 * Test if the `parse` method throws an exception if the closing parentheses is missing
 	 * and the end of the stream isn't reached.
 	 * 
-	 * @expectedException \com\mohiva\common\parser\exceptions\SyntaxErrorException
+	 * @expectedException \com\mohiva\common\exceptions\SyntaxErrorException
 	 */
 	public function testParseThrowsExceptionIfEndOfStreamIsNotReached() {
 		
@@ -82,7 +82,7 @@ class ParenthesesOperandTest extends \PHPUnit_Framework_TestCase {
 	 * Test if the `parse` method throws an exception if the closing parentheses is missing 
 	 * and the end of the stream is reached.
 	 * 
-	 * @expectedException \com\mohiva\common\parser\exceptions\SyntaxErrorException
+	 * @expectedException \com\mohiva\common\exceptions\SyntaxErrorException
 	 */
 	public function testParseThrowsExceptionIfEndOfStreamIsReached() {
 		

@@ -122,7 +122,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Test if the `parsePrimary` method throws an exception if no operand or unary operator can be found.
 	 * 
-	 * @expectedException \com\mohiva\common\parser\exceptions\SyntaxErrorException
+	 * @expectedException \com\mohiva\common\exceptions\SyntaxErrorException
 	 */
 	public function testParsePrimaryThrowsException() {
 		
@@ -137,7 +137,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 	 * Test if the `parseOperand` method throws an exception if an operand parser cannot 
 	 * be found for an token.
 	 * 
-	 * @expectedException \com\mohiva\common\parser\exceptions\SyntaxErrorException
+	 * @expectedException \com\mohiva\common\exceptions\SyntaxErrorException
 	 */
 	public function testParseOperandThrowsException() {
 		

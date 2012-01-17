@@ -19,7 +19,7 @@
 namespace com\mohiva\pyramid;
 
 use com\mohiva\common\parser\TokenStream;
-use com\mohiva\common\parser\exceptions\SyntaxErrorException;
+use com\mohiva\common\exceptions\SyntaxErrorException;
 use com\mohiva\pyramid\exceptions\InvalidIdentifierException;
 
 /**

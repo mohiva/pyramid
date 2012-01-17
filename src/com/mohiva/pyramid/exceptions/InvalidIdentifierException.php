@@ -18,6 +18,8 @@
  */
 namespace com\mohiva\pyramid\exceptions;
 
+use com\mohiva\common\exceptions\MohivaException;
+
 /**
  * Signals that an identifier is invalid.
  * 
@@ -28,4 +30,4 @@ namespace com\mohiva\pyramid\exceptions;
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-class InvalidIdentifierException extends \Exception {}
+class InvalidIdentifierException extends \Exception implements MohivaException {}

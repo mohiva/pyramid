@@ -18,6 +18,8 @@
  */
 namespace com\mohiva\pyramid\exceptions;
 
+use com\mohiva\common\exceptions\MohivaException;
+
 /**
  * Signals that an unsupported operator was given.
  * 
@@ -28,4 +30,4 @@ namespace com\mohiva\pyramid\exceptions;
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-class UnsupportedOperatorException extends \Exception {}
+class UnsupportedOperatorException extends \Exception implements MohivaException {}
