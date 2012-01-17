@@ -18,6 +18,8 @@
  */
 namespace com\mohiva\pyramid\exceptions;
 
+use com\mohiva\common\exceptions\MohivaException;
+
 /**
  * Signals that an unsupported parenthesis was given.
  * 
@@ -28,4 +30,4 @@ namespace com\mohiva\pyramid\exceptions;
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-class UnsupportedParenthesisException extends \Exception {}
+class UnsupportedParenthesisException extends \Exception implements MohivaException {}
