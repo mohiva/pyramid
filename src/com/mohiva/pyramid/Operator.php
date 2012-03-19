@@ -20,7 +20,7 @@ namespace com\mohiva\pyramid;
 
 /**
  * Represents a document expression operator.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -29,24 +29,24 @@ namespace com\mohiva\pyramid;
  * @link      https://github.com/mohiva/pyramid
  */
 interface Operator {
-	
+
 	/**
 	 * Returns the operator code.
-	 * 
+	 *
 	 * @return int The operator code.
 	 */
 	public function getCode();
-	
+
 	/**
 	 * Returns the precedence of the operator.
-	 * 
+	 *
 	 * @return int The precedence of the operator.
 	 */
 	public function getPrecedence();
-	
+
 	/**
 	 * Returns the operator node instance for the operator,
-	 * 
+	 *
 	 * @return Node The node instance associated with this operator.
 	 */
 	public function getNode();

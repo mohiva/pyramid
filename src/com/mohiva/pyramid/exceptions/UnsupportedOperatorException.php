@@ -22,7 +22,7 @@ use com\mohiva\common\exceptions\MohivaException;
 
 /**
  * Signals that an unsupported operator was given.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Exceptions
  * @author    Christian Kaps <christian.kaps@mohiva.com>

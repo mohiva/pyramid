@@ -22,7 +22,7 @@ use com\mohiva\common\exceptions\MohivaException;
 
 /**
  * Signals that an identifier is already in use for an other operand.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Exceptions
  * @author    Christian Kaps <christian.kaps@mohiva.com>

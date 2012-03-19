@@ -22,7 +22,7 @@ use com\mohiva\pyramid\example\nodes\OperandNode;
 
 /**
  * Unit test case for the Mohiva Pyramid project.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -31,15 +31,15 @@ use com\mohiva\pyramid\example\nodes\OperandNode;
  * @link      https://github.com/mohiva/pyramid
  */
 class OperandNodeTest extends \PHPUnit_Framework_TestCase {
-	
+
 	/**
 	 * Test if the `evaluate` method returns the correct number.
 	 */
 	public function testEvaluate() {
-		
+
 		$operand = mt_rand(1, 100);
 		$node = new OperandNode($operand);
-		
+
 		$this->assertSame($operand, $node->evaluate());
 	}
 }

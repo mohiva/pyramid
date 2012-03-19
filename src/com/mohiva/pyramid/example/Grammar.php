@@ -34,7 +34,7 @@ use com\mohiva\pyramid\example\operands\ParenthesesOperand;
 
 /**
  * The parser grammar for the Pyramid example.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Example
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -43,14 +43,14 @@ use com\mohiva\pyramid\example\operands\ParenthesesOperand;
  * @link      https://github.com/mohiva/pyramid
  */
 class Grammar extends ParserGrammar {
-	
+
 	/**
 	 * Creates the grammar.
 	 */
 	public function __construct() {
-		
+
 		parent::__construct();
-		
+
 		// Note: unary +/- operators must have higher precedence as all binary operators
 		// http://www.antlr.org/pipermail/antlr-dev/2009-April/002255.html
 		$this->addOperator(new UnaryOperator(Lexer::T_PLUS, 3, function($node) {
@@ -77,7 +77,7 @@ class Grammar extends ParserGrammar {
 		$this->addOperator(new BinaryOperator(Lexer::T_POWER, 2, BinaryOperator::RIGHT, function($left, $right) {
 			return new BinaryPowerNode($left, $right);
 		}));
-		
+
 		$this->addOperand(new NumberOperand());
 		$this->addOperand(new ParenthesesOperand());
 	}

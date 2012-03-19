@@ -22,7 +22,7 @@ use com\mohiva\pyramid\Node;
 
 /**
  * Represents an operand node.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Example/Nodes
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -31,31 +31,31 @@ use com\mohiva\pyramid\Node;
  * @link      https://github.com/mohiva/pyramid
  */
 class OperandNode implements Node {
-	
+
 	/**
 	 * The operand which this node represents.
-	 * 
+	 *
 	 * @var mixed
 	 */
 	private $operand = null;
-	
+
 	/**
 	 * The class constructor.
-	 * 
+	 *
 	 * @param mixed $operand The operand which this node represents.
 	 */
 	public function __construct($operand) {
-		
+
 		$this->operand = $operand;
 	}
-	
+
 	/**
 	 * Evaluates the node.
-	 * 
+	 *
 	 * @return mixed The result of the evaluation.
 	 */
 	public function evaluate() {
-		
+
 		return $this->operand;
 	}
 }

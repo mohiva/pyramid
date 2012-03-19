@@ -23,7 +23,7 @@ use com\mohiva\common\parser\TokenStream;
 
 /**
  * Unit test case for the Mohiva Pyramid project.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -32,15 +32,15 @@ use com\mohiva\common\parser\TokenStream;
  * @link      https://github.com/mohiva/pyramid
  */
 class LexerTest extends \PHPUnit_Framework_TestCase {
-	
+
 	/**
 	 * Test the syntax of a mathematical calculation.
 	 */
 	public function testCalculationSyntax() {
-		
+
 		$lexer = new Lexer(new TokenStream());
 		$lexer->scan(' 12+4-1/3 * +0.4 + (-12 + 5^3) ');
-		
+
 		$actual = $this->buildActualTokens($lexer->getStream());
 		$expected = array(
 			array(Lexer::T_NUMBER => '12'),
@@ -63,33 +63,33 @@ class LexerTest extends \PHPUnit_Framework_TestCase {
 			array(Lexer::T_NUMBER => '3'),
 			array(Lexer::T_CLOSE_PARENTHESIS => ')'),
 		);
-		
+
 		$this->assertSame($expected, $actual);
 	}
-	
+
 	/**
 	 * Test the none token.
 	 */
 	public function testNoneToken() {
-		
+
 		$lexer = new Lexer(new TokenStream());
 		$lexer->scan(' # ');
-		
+
 		$actual = $this->buildActualTokens($lexer->getStream());
 		$expected = array(
 			array(Lexer::T_NONE => '#'),
 		);
 		$this->assertSame($expected, $actual);
 	}
-	
+
 	/**
 	 * Create an array from the token stream which contains only the tokens and the operators/values.
-	 * 
+	 *
 	 * @param \com\mohiva\common\parser\TokenStream $stream The stream containing the lexer tokens.
 	 * @return array The actual list with tokens and operators/values.
 	 */
 	private function buildActualTokens(TokenStream $stream) {
-		
+
 		$actual = array();
 		while ($stream->valid()) {
 			/* @var \com\mohiva\pyramid\Token $current */
@@ -97,7 +97,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase {
 			$stream->next();
 			$actual[] = array($current->getCode() => $current->getValue());
 		}
-		
+
 		return $actual;
 	}
 }

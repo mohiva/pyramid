@@ -27,7 +27,7 @@ use com\mohiva\common\parser\TokenStream;
 
 /**
  * Unit test case for the Mohiva Pyramid project.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -36,64 +36,64 @@ use com\mohiva\common\parser\TokenStream;
  * @link      https://github.com/mohiva/pyramid
  */
 class ParenthesesOperandTest extends \PHPUnit_Framework_TestCase {
-	
+
 	/**
 	 * Test if the `parse` method returns a `Node` object.
 	 */
 	public function testParseReturnsNode() {
-		
+
 		$tokenStream = new TokenStream();
 		$tokenStream->push(new Token(Lexer::T_OPEN_PARENTHESIS, '(', 1));
 		$tokenStream->push(new Token(Lexer::T_NUMBER, 100, 1));
 		$tokenStream->push(new Token(Lexer::T_CLOSE_PARENTHESIS, ')', 1));
 		$tokenStream->rewind();
-		
+
 		$grammar = new Grammar();
 		$grammar->addOperand(new NumberOperand());
-		
+
 		$operand = new ParenthesesOperand();
 		$node = $operand->parse($grammar, $tokenStream);
-		
+
 		$this->assertInstanceOf('\com\mohiva\pyramid\Node', $node);
 	}
-	
+
 	/**
 	 * Test if the `parse` method throws an exception if the closing parentheses is missing
 	 * and the end of the stream isn't reached.
-	 * 
+	 *
 	 * @expectedException \com\mohiva\common\exceptions\SyntaxErrorException
 	 */
 	public function testParseThrowsExceptionIfEndOfStreamIsNotReached() {
-		
+
 		$tokenStream = new TokenStream();
 		$tokenStream->push(new Token(Lexer::T_OPEN_PARENTHESIS, '(', 1));
 		$tokenStream->push(new Token(Lexer::T_NUMBER, 100, 1));
 		$tokenStream->push(new Token(Lexer::T_NUMBER, 100, 1));
 		$tokenStream->rewind();
-		
+
 		$grammar = new Grammar();
 		$grammar->addOperand(new NumberOperand());
-		
+
 		$operand = new ParenthesesOperand();
 		$operand->parse($grammar, $tokenStream);
 	}
-	
+
 	/**
-	 * Test if the `parse` method throws an exception if the closing parentheses is missing 
+	 * Test if the `parse` method throws an exception if the closing parentheses is missing
 	 * and the end of the stream is reached.
-	 * 
+	 *
 	 * @expectedException \com\mohiva\common\exceptions\SyntaxErrorException
 	 */
 	public function testParseThrowsExceptionIfEndOfStreamIsReached() {
-		
+
 		$tokenStream = new TokenStream();
 		$tokenStream->push(new Token(Lexer::T_OPEN_PARENTHESIS, '(', 1));
 		$tokenStream->push(new Token(Lexer::T_NUMBER, 100, 1));
 		$tokenStream->rewind();
-		
+
 		$grammar = new Grammar();
 		$grammar->addOperand(new NumberOperand());
-		
+
 		$operand = new ParenthesesOperand();
 		$operand->parse($grammar, $tokenStream);
 	}

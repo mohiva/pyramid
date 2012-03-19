@@ -22,7 +22,7 @@ use com\mohiva\pyramid\nodes\UnaryOperatorNode;
 
 /**
  * Represents an unary positive expression.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Example/Nodes
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -31,14 +31,14 @@ use com\mohiva\pyramid\nodes\UnaryOperatorNode;
  * @link      https://github.com/mohiva/pyramid
  */
 class UnaryPosNode extends UnaryOperatorNode {
-	
+
 	/**
 	 * Evaluates the node.
-	 * 
-	 * @return number The result of the evaluation.
+	 *
+	 * @return mixed The result of the evaluation.
 	 */
 	public function evaluate() {
-		
+
 		return +$this->node->evaluate();
 	}
 }

@@ -24,11 +24,11 @@ use com\mohiva\pyramid\exceptions\InvalidIdentifierException;
 
 /**
  * Implementation of an operator precedence parser based on the "Precedence climbing" algorithm.
- * 
+ *
  * @see http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm#climbing
  * @see http://en.wikipedia.org/wiki/Operator-precedence_parser
  * @see http://en.wikipedia.org/wiki/Interpreter_pattern
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -37,63 +37,63 @@ use com\mohiva\pyramid\exceptions\InvalidIdentifierException;
  * @link      https://github.com/mohiva/pyramid
  */
 class Parser {
-	
+
 	/**
 	 * The grammar used for this parser.
-	 * 
+	 *
 	 * @var Grammar
 	 */
 	private $grammar = null;
-	
+
 	/**
 	 * The stream to parse.
-	 * 
+	 *
 	 * @var \com\mohiva\common\parser\TokenStream
 	 */
 	private $stream = null;
-	
+
 	/**
 	 * The class constructor.
-	 * 
+	 *
 	 * @param Grammar $grammar The grammar used for this parser.
 	 */
 	public function  __construct(Grammar $grammar) {
-		
+
 		$this->grammar = $grammar;
 	}
-	
+
 	/**
 	 * Parse the token stream and return the resulting parse tree.
-	 * 
+	 *
 	 * @param \com\mohiva\common\parser\TokenStream $stream The stream to parse.
 	 * @return Node The root of the node tree.
 	 */
 	public function parse(TokenStream $stream) {
-		
+
 		$this->stream = $stream;
-		
+
 		$node = $this->parseExpression(0);
-		
+
 		return $node;
 	}
-	
+
 	/**
 	 * Parse the expression.
-	 * 
+	 *
 	 * @param int $precedence The precedence level.
 	 * @return Node The expression node.
 	 */
 	private function parseExpression($precedence) {
-		
+
 		/* @var Token $token */
 		$operatorTable = $this->grammar->getOperatorTable();
 		$node = $this->parsePrimary();
 		$token = $this->stream->current();
 		while ($token && $operatorTable->isBinary($token) &&
 			$operatorTable->getBinaryOperator($token)->getPrecedence() >= $precedence) {
-			
+
 			$this->stream->next();
-			
+
 			$operator = $operatorTable->getBinaryOperator($token);
 			$operatorNode = $operator->getNode();
 			$node = $operatorNode($node, $this->parseExpression(
@@ -101,21 +101,21 @@ class Parser {
 					? $operator->getPrecedence()
 					: $operator->getPrecedence() + 1
 			));
-			
+
 			$token = $this->stream->current();
 		}
-		
+
 		return $node;
 	}
-	
+
 	/**
 	 * Parse primary expression.
-	 * 
+	 *
 	 * @return Node The primary node.
-	 * @throws SyntaxErrorException if no operand or unary operator can be found.
+	 * @throws \com\mohiva\common\exceptions\SyntaxErrorException if no operand or unary operator can be found.
 	 */
 	private function parsePrimary() {
-		
+
 		/* @var Token $token */
 		$token = $this->stream->current();
 		$operatorTable = $this->grammar->getOperatorTable();
@@ -131,18 +131,19 @@ class Parser {
 		} else {
 			throw new SyntaxErrorException('Operand or unary operator expected; but end of stream reached');
 		}
-		
+
 		return $node;
 	}
-	
+
 	/**
 	 * Parse the operand.
-	 * 
+	 *
 	 * @return Node The node object for the operand.
-	 * @throws SyntaxErrorException if no operand parser can be found for the current token.
+	 * @throws \com\mohiva\common\exceptions\SyntaxErrorException if no operand parser can be found for
+	 * the current token.
 	 */
 	private function parseOperand() {
-		
+
 		/* @var Token $token */
 		$token = $this->stream->current();
 		$operandTable = $this->grammar->getOperandTable();
@@ -153,7 +154,7 @@ class Parser {
 			$message = "Cannot find operand parser for token `{$token->getValue()}`";
 			throw new SyntaxErrorException($message, null, $e);
 		}
-		
+
 		return $operand->parse($this->grammar, $this->stream);
 	}
 }

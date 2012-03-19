@@ -26,7 +26,7 @@ use com\mohiva\pyramid\Operand;
 
 /**
  * Operand which parses integer and floating-point values.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Example/Operands
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -35,17 +35,17 @@ use com\mohiva\pyramid\Operand;
  * @link      https://github.com/mohiva/pyramid
  */
 class NumberOperand implements Operand {
-	
+
 	/**
 	 * Returns the identifiers for this operand.
 	 *
 	 * @return array The identifiers for this operand.
 	 */
 	public function getIdentifiers() {
-		
+
 		return array(Lexer::T_NUMBER);
 	}
-	
+
 	/**
 	 * Parse the operand.
 	 *
@@ -54,11 +54,11 @@ class NumberOperand implements Operand {
 	 * @return \com\mohiva\pyramid\example\nodes\OperandNode The operand node.
 	 */
 	public function parse(Grammar $grammar, TokenStream $stream) {
-		
+
 		/* @var \com\mohiva\pyramid\Token $token */
 		$token = $stream->current();
 		$node = new OperandNode($token->getValue());
-		
+
 		return $node;
 	}
 }

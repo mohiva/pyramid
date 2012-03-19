@@ -23,7 +23,7 @@ use com\mohiva\pyramid\Operator;
 
 /**
  * Represents a prefix unary operator.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Operators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -32,69 +32,69 @@ use com\mohiva\pyramid\Operator;
  * @link      https://github.com/mohiva/pyramid
  */
 class UnaryOperator implements Operator {
-	
+
 	/**
 	 * The token code.
-	 * 
+	 *
 	 * @var int
 	 */
 	private $code = null;
-	
+
 	/**
 	 * The precedence of the operator.
-	 * 
+	 *
 	 * @var int
 	 */
 	private $precedence = null;
-	
+
 	/**
 	 * The closure which instantiates the node object for this operator.
-	 * 
-	 * @var \Closure
+	 *
+	 * @var Closure
 	 */
 	private $node = null;
-	
+
 	/**
 	 * The class constructor.
-	 * 
+	 *
 	 * @param int $code The token code.
 	 * @param int $precedence The precedence of the operator.
-	 * @param \Closure $node A closure which instantiates the node object for this operator.
+	 * @param Closure $node A closure which instantiates the node object for this operator.
 	 */
 	public function __construct($code, $precedence, Closure $node) {
-		
+
 		$this->code = $code;
 		$this->precedence = $precedence;
 		$this->node = $node;
 	}
-	
+
 	/**
 	 * Returns the token code.
-	 * 
+	 *
 	 * @return int The token code.
 	 */
 	public function getCode() {
-		
+
 		return $this->code;
 	}
-	
+
 	/**
 	 * Returns the precedence of the operator.
-	 * 
+	 *
 	 * @return int The precedence of the operator.
 	 */
 	public function getPrecedence() {
-		
+
 		return $this->precedence;
 	}
-	
+
 	/**
 	 * Returns the closure which instantiates the node object for this operator.
-	 * 
-	 * @return \Closure The closure which instantiates the node object for this operator.
+	 *
+	 * @return Closure The closure which instantiates the node object for this operator.
 	 */
 	public function getNode() {
-		
+
 		return $this->node;
 	}
 }
