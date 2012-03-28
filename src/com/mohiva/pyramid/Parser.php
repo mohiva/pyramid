@@ -119,13 +119,12 @@ class Parser {
 		/* @var Token $token */
 		$token = $this->stream->current();
 		$operatorTable = $this->grammar->getOperatorTable();
-		$operandTable = $this->grammar->getOperandTable();
 		if ($token && $operatorTable->isUnary($token)) {
 			$this->stream->next();
 			$operator = $operatorTable->getUnaryOperator($token);
 			$operatorNode = $operator->getNode();
 			$node = $operatorNode($this->parseExpression($operator->getPrecedence()));
-		} else if ($token && $operandTable->isRegistered($token)) {
+		} else if ($token) {
 			$node = $this->parseOperand();
 			$this->stream->next();
 		} else {
@@ -152,7 +151,7 @@ class Parser {
 			$operand = $operandTable->getOperand($token);
 		} catch (InvalidIdentifierException $e) {
 			$message = "Cannot find operand parser for token `{$token->getValue()}`";
-			throw new SyntaxErrorException($message, null, $e);
+			throw new SyntaxErrorException($message, 0, $e);
 		}
 
 		return $operand->parse($this->grammar, $this->stream);

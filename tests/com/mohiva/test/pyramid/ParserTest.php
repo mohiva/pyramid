@@ -22,6 +22,7 @@ use com\mohiva\pyramid\Parser;
 use com\mohiva\pyramid\example\Lexer;
 use com\mohiva\pyramid\example\Grammar;
 use com\mohiva\common\parser\TokenStream;
+use com\mohiva\common\exceptions\SyntaxErrorException;
 
 /**
  * Unit test case for the Mohiva Pyramid project.
@@ -97,12 +98,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 	public function testParenthesesOperation() {
 
 		$lexer = new Lexer(new TokenStream);
-		$stream = $lexer->scan('-(-1.2) + 1 + (( -2 + 5) * 6 * (5 + 5))');
+		$stream = $lexer->scan('-(-1.2) + 1 + (( -2 + 5) * 6 * (5 - 5))');
 
 		$parser = new Parser(new Grammar());
 		$node = $parser->parse($stream);
 
-		$this->assertSame(-(-1.2) + 1 + (( -2 + 5) * 6 * (5 + 5)), $node->evaluate());
+		$this->assertSame(-(-1.2) + 1 + (( -2 + 5) * 6 * (5 - 5)), $node->evaluate());
 	}
 
 	/**
@@ -111,12 +112,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 	public function testComplexOperation() {
 
 		$lexer = new Lexer(new TokenStream);
-		$stream = $lexer->scan('-(-1.1 + 1) * 5^6^3 / (4 / +5.568 * (2 - 8))');
+		$stream = $lexer->scan('-(-1.1 + 1) * 5^6^3 / (4 / +5.568 * (2 % 8))');
 
 		$parser = new Parser(new Grammar());
 		$node = $parser->parse($stream);
 
-		$this->assertSame(-(-1.1 + 1) * pow(5, pow(6, 3)) / (4 / +5.568 * (2 - 8)), $node->evaluate());
+		$this->assertSame(-(-1.1 + 1) * pow(5, pow(6, 3)) / (4 / +5.568 * (2 % 8)), $node->evaluate());
 	}
 
 	/**
@@ -136,8 +137,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Test if the `parseOperand` method throws an exception if an operand parser cannot
 	 * be found for an token.
-	 *
-	 * @expectedException \com\mohiva\common\exceptions\SyntaxErrorException
 	 */
 	public function testParseOperandThrowsException() {
 
@@ -145,6 +144,10 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$stream = $lexer->scan('1 + test');
 
 		$parser = new Parser(new Grammar());
-		$parser->parse($stream);
+		try {
+			$parser->parse($stream);
+		} catch (SyntaxErrorException $e) {
+			$this->assertInstanceOf('\com\mohiva\pyramid\exceptions\InvalidIdentifierException', $e->getPrevious());
+		}
 	}
 }
