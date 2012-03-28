@@ -20,10 +20,10 @@ namespace com\mohiva\pyramid;
 
 /**
  * Represents a expression node.
- * 
+ *
  * A node can be the root node or a node which contains multiple
  * nodes or a leaf.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -32,10 +32,10 @@ namespace com\mohiva\pyramid;
  * @link      https://github.com/mohiva/pyramid
  */
 interface Node {
-	
+
 	/**
 	 * Evaluates the node.
-	 * 
+	 *
 	 * @return mixed The result of the evaluation.
 	 */
 	public function evaluate();

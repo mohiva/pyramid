@@ -20,7 +20,7 @@ namespace com\mohiva\test\pyramid\example\nodes;
 
 /**
  * Test suite for the Mohiva Pyramid project.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -29,12 +29,12 @@ namespace com\mohiva\test\pyramid\example\nodes;
  * @link      https://github.com/mohiva/pyramid
  */
 class AllTests extends \PHPUnit_Framework_TestSuite {
-	
+
 	/**
 	 * Constructs the test suite handler.
 	 */
 	public function __construct() {
-		
+
 		$this->setName(__CLASS__);
 		$this->addTestSuite(__NAMESPACE__ . '\BinaryAddNodeTest');
 		$this->addTestSuite(__NAMESPACE__ . '\BinaryDivNodeTest');
@@ -46,14 +46,14 @@ class AllTests extends \PHPUnit_Framework_TestSuite {
 		$this->addTestSuite(__NAMESPACE__ . '\UnaryNegNodeTest');
 		$this->addTestSuite(__NAMESPACE__ . '\UnaryPosNodeTest');
 	}
-	
+
 	/**
 	 * Creates the suite.
-	 * 
+	 *
 	 * @return AllTests The test suite.
 	 */
 	public static function suite() {
-		
+
 		return new self();
 	}
 }

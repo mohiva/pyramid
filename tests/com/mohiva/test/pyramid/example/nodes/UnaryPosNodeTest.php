@@ -23,7 +23,7 @@ use com\mohiva\pyramid\example\nodes\UnaryPosNode;
 
 /**
  * Unit test case for the Mohiva Pyramid project.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -32,15 +32,15 @@ use com\mohiva\pyramid\example\nodes\UnaryPosNode;
  * @link      https://github.com/mohiva/pyramid
  */
 class UnaryPosNodeTest extends \PHPUnit_Framework_TestCase {
-	
+
 	/**
 	 * Test if the `evaluate` method returns the correct value for the operation.
 	 */
 	public function testEvaluate() {
-		
+
 		$left = mt_rand(1, 100);
 		$node = new UnaryPosNode(new OperandNode($left));
-		
+
 		$this->assertSame(+$left, $node->evaluate());
 	}
 }

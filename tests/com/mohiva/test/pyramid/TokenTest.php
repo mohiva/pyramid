@@ -22,7 +22,7 @@ use com\mohiva\pyramid\Token;
 
 /**
  * Unit test case for the Mohiva Pyramid project.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -31,18 +31,18 @@ use com\mohiva\pyramid\Token;
  * @link      https://github.com/mohiva/pyramid
  */
 class TokenTest extends \PHPUnit_Framework_TestCase {
-	
+
 	/**
 	 * Test all getters for the values set with the constructor.
 	 */
 	public function testConstructorAccessors() {
-		
+
 		$code = mt_rand(1, 30);
 		$value = sha1(microtime(true));
 		$offset = mt_rand(1, 100);
-		
+
 		$token = new Token($code, $value, $offset);
-		
+
 		$this->assertSame($code, $token->getCode());
 		$this->assertSame($value, $token->getValue());
 		$this->assertSame($offset, $token->getOffset());

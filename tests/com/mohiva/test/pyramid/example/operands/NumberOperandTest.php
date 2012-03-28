@@ -26,7 +26,7 @@ use com\mohiva\common\parser\TokenStream;
 
 /**
  * Unit test case for the Mohiva Pyramid project.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -35,21 +35,21 @@ use com\mohiva\common\parser\TokenStream;
  * @link      https://github.com/mohiva/pyramid
  */
 class NumberOperandTest extends \PHPUnit_Framework_TestCase {
-	
+
 	/**
 	 * Test if the parse method returns the `OperandNode` with the correct number.
 	 */
 	public function testParseReturnsNodeWithCorrectNumber() {
-		
+
 		$number = mt_rand(1, 100);
-		
+
 		$tokenStream = new TokenStream();
 		$tokenStream->push(new Token(Lexer::T_NUMBER, $number, 1));
 		$tokenStream->rewind();
-		
+
 		$operand = new NumberOperand();
 		$node = $operand->parse(new Grammar, $tokenStream);
-		
+
 		$this->assertSame($number, $node->evaluate());
 	}
 }

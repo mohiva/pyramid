@@ -22,9 +22,9 @@ use com\mohiva\pyramid\Node;
 
 /**
  * Represents a binary operator node.
- * 
+ *
  * A binary operator has a left and a right child node.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Nodes
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -33,29 +33,29 @@ use com\mohiva\pyramid\Node;
  * @link      https://github.com/mohiva/pyramid
  */
 abstract class BinaryOperatorNode implements Node {
-	
+
 	/**
 	 * The left child node.
-	 * 
+	 *
 	 * @var \com\mohiva\pyramid\Node
 	 */
 	protected $left = null;
-	
+
 	/**
 	 * The right child node.
-	 * 
+	 *
 	 * @var \com\mohiva\pyramid\Node
 	 */
 	protected $right = null;
-	
+
 	/**
 	 * The class constructor.
-	 * 
+	 *
 	 * @param \com\mohiva\pyramid\Node $left The left child node.
 	 * @param \com\mohiva\pyramid\Node $right The right child node.
 	 */
 	public function __construct(Node $left, Node $right) {
-		
+
 		$this->left = $left;
 		$this->right = $right;
 	}

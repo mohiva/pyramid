@@ -20,7 +20,7 @@ namespace com\mohiva\test\pyramid\example;
 
 /**
  * Test suite for the Mohiva Pyramid project.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -29,25 +29,25 @@ namespace com\mohiva\test\pyramid\example;
  * @link      https://github.com/mohiva/pyramid
  */
 class AllTests extends \PHPUnit_Framework_TestSuite {
-	
+
 	/**
 	 * Constructs the test suite handler.
 	 */
 	public function __construct() {
-		
+
 		$this->setName(__CLASS__);
 		$this->addTest(nodes\AllTests::suite());
 		$this->addTest(operands\AllTests::suite());
 		$this->addTestSuite(__NAMESPACE__ . '\LexerTest');
 	}
-	
+
 	/**
 	 * Creates the suite.
-	 * 
+	 *
 	 * @return AllTests The test suite.
 	 */
 	public static function suite() {
-		
+
 		return new self();
 	}
 }
