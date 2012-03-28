@@ -23,7 +23,7 @@ use com\mohiva\pyramid\example\nodes\BinaryModNode;
 
 /**
  * Unit test case for the Mohiva Pyramid project.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -32,16 +32,16 @@ use com\mohiva\pyramid\example\nodes\BinaryModNode;
  * @link      https://github.com/mohiva/pyramid
  */
 class BinaryModNodeTest extends \PHPUnit_Framework_TestCase {
-	
+
 	/**
 	 * Test if the `evaluate` method returns the correct value for the operation.
 	 */
 	public function testEvaluate() {
-		
+
 		$left = mt_rand(1, 100);
 		$right = mt_rand(1, 100);
 		$node = new BinaryModNode(new OperandNode($left), new OperandNode($right));
-		
+
 		$this->assertSame($left % $right, $node->evaluate());
 	}
 }

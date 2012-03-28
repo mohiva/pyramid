@@ -25,7 +25,7 @@ use com\mohiva\pyramid\operators\UnaryOperator;
 
 /**
  * Unit test case for the Mohiva Pyramid project.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -34,127 +34,127 @@ use com\mohiva\pyramid\operators\UnaryOperator;
  * @link      https://github.com/mohiva/pyramid
  */
 class OperatorTableTest extends \PHPUnit_Framework_TestCase {
-	
+
 	/**
 	 * Test the `addOperator` and `getBinaryOperator` accessors.
 	 */
 	public function testBinaryOperatorAccessors() {
-		
+
 		$operator = new BinaryOperator(1, 10, BinaryOperator::LEFT, function() {});
 		$token = new Token($operator->getCode(), '+', 1);
-		
+
 		$table = new OperatorTable();
 		$table->addOperator($operator);
-		
+
 		$this->assertSame($operator, $table->getBinaryOperator($token));
 	}
-	
+
 	/**
 	 * Test the `addOperator` and `getUnaryOperator` accessors.
 	 */
 	public function testUnaryOperatorAccessors() {
-		
+
 		$operator = new UnaryOperator(1, 10, function() {});
 		$token = new Token($operator->getCode(), '+', 1);
-		
+
 		$table = new OperatorTable();
 		$table->addOperator($operator);
-		
+
 		$this->assertSame($operator, $table->getUnaryOperator($token));
 	}
-	
+
 	/**
 	 * Test if the `addOperator` method throws an exception if an unsupported operator was given.
-	 * 
+	 *
 	 * @expectedException \com\mohiva\pyramid\exceptions\UnsupportedOperatorException
 	 */
 	public function testAddOperatorThrowsException() {
-		
+
 		/* @var \com\mohiva\pyramid\Operator $operator */
 		$operator = $this->getMock('\com\mohiva\pyramid\Operator');
-		
+
 		$table = new OperatorTable();
 		$table->addOperator($operator);
 	}
-	
+
 	/**
 	 * Test if the `isBinary` method returns true if the operator is an binary operator.
 	 */
 	public function testIsBinaryReturnsTrue() {
-		
+
 		$operator = new BinaryOperator(1, 10, BinaryOperator::LEFT, function() {});
 		$token = new Token($operator->getCode(), '+', 1);
-		
+
 		$table = new OperatorTable();
 		$table->addOperator($operator);
-		
+
 		$this->assertTrue($table->isBinary($token));
 	}
-	
+
 	/**
 	 * Test if the `isBinary` method returns false if the operator isn't an binary operator.
 	 */
 	public function testIsBinaryReturnsFalse() {
-		
+
 		$operator = new UnaryOperator(1, 10, function() {});
 		$token = new Token($operator->getCode(), '+', 1);
-		
+
 		$table = new OperatorTable();
 		$table->addOperator($operator);
-		
+
 		$this->assertFalse($table->isBinary($token));
 	}
-	
+
 	/**
 	 * Test if the `isUnary` method returns true if the operator is an unary operator.
 	 */
 	public function testIsUnaryReturnsTrue() {
-		
+
 		$operator = new UnaryOperator(1, 10, function() {});
 		$token = new Token($operator->getCode(), '+', 1);
-		
+
 		$table = new OperatorTable();
 		$table->addOperator($operator);
-		
+
 		$this->assertTrue($table->isUnary($token));
 	}
-	
+
 	/**
 	 * Test if the `isUnary` method returns false if the operator isn't an unary operator.
 	 */
 	public function testIsUnaryReturnsFalse() {
-		
+
 		$operator = new BinaryOperator(1, 10, BinaryOperator::LEFT, function() {});
 		$token = new Token($operator->getCode(), '+', 1);
-		
+
 		$table = new OperatorTable();
 		$table->addOperator($operator);
-		
+
 		$this->assertFalse($table->isUnary($token));
 	}
-	
+
 	/**
 	 * Test if the `getBinaryOperator` method throws an exception if the requested operator doesn't exists.
-	 * 
+	 *
 	 * @expectedException \com\mohiva\pyramid\exceptions\UnsupportedOperatorException
 	 */
 	public function testGetBinaryOperatorThrowsException() {
-		
+
 		$token = new Token(1, '+', 1);
-		
+
 		$table = new OperatorTable();
 		$table->getBinaryOperator($token);
 	}
-	
+
 	/**
 	 * Test if the `getUnaryOperator` method throws an exception if the requested operator doesn't exists.
-	 * 
+	 *
 	 * @expectedException \com\mohiva\pyramid\exceptions\UnsupportedOperatorException
 	 */
 	public function testGetUnaryOperatorThrowsException() {
-		
+
 		$token = new Token(1, '+', 1);
-		
+
 		$table = new OperatorTable();
 		$table->getUnaryOperator($token);
 	}

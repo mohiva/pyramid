@@ -22,7 +22,7 @@ use com\mohiva\pyramid\operators\BinaryOperator;
 
 /**
  * Unit test case for the Mohiva Pyramid project.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -31,12 +31,12 @@ use com\mohiva\pyramid\operators\BinaryOperator;
  * @link      https://github.com/mohiva/pyramid
  */
 class BinaryOperatorTest extends \PHPUnit_Framework_TestCase {
-	
+
 	/**
 	 * Test all getters for the values set with the constructor.
 	 */
 	public function testConstructorAccessors() {
-		
+
 		$code = mt_rand(1, 100);
 		$precedence = mt_rand(1, 100);
 		$closure = function() {};
@@ -46,49 +46,49 @@ class BinaryOperatorTest extends \PHPUnit_Framework_TestCase {
 			BinaryOperator::LEFT,
 			$closure
 		);
-		
+
 		$this->assertSame($code, $operator->getCode());
 		$this->assertSame($precedence, $operator->getPrecedence());
 		$this->assertSame($closure, $operator->getNode());
 	}
-	
+
 	/**
 	 * Test if the method `isLeftAssociative` returns true if the operator is left associative.
 	 */
 	public function testIsLeftAssociativeReturnsTrue() {
-		
+
 		$operator = new BinaryOperator(1, 10, BinaryOperator::LEFT, function() {});
-		
+
 		$this->assertTrue($operator->isLeftAssociative());
 	}
-	
+
 	/**
 	 * Test if the method `isLeftAssociative` returns false if the operator isn't left associative.
 	 */
 	public function testIsLeftAssociativeReturnsFalse() {
-		
+
 		$operator = new BinaryOperator(1, 10, BinaryOperator::RIGHT, function() {});
-		
+
 		$this->assertFalse($operator->isLeftAssociative());
 	}
-	
+
 	/**
 	 * Test if the method `isRightAssociative` returns true if the operator is right associative.
 	 */
 	public function testIsRightAssociativeReturnsTrue() {
-		
+
 		$operator = new BinaryOperator(1, 10, BinaryOperator::RIGHT, function() {});
-		
+
 		$this->assertTrue($operator->isRightAssociative());
 	}
-	
+
 	/**
 	 * Test if the method `isRightAssociative` returns false if the operator isn't right associative.
 	 */
 	public function testIsRightAssociativeReturnsFalse() {
-		
+
 		$operator = new BinaryOperator(1, 10, BinaryOperator::LEFT, function() {});
-		
+
 		$this->assertFalse($operator->isRightAssociative());
 	}
 }

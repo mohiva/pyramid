@@ -22,9 +22,9 @@ use com\mohiva\pyramid\Node;
 
 /**
  * Represents a binary operator node.
- * 
+ *
  * An unary operator can only have on child node.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Nodes
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -33,21 +33,21 @@ use com\mohiva\pyramid\Node;
  * @link      https://github.com/mohiva/pyramid
  */
 abstract class UnaryOperatorNode implements Node {
-	
+
 	/**
 	 * The child node.
-	 * 
+	 *
 	 * @var \com\mohiva\pyramid\Node
 	 */
 	protected $node = null;
-	
+
 	/**
 	 * The class constructor.
-	 * 
+	 *
 	 * @param \com\mohiva\pyramid\Node $node The child node.
 	 */
 	public function __construct(Node $node) {
-		
+
 		$this->node = $node;
 	}
 }

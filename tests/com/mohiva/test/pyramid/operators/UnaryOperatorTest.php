@@ -22,7 +22,7 @@ use com\mohiva\pyramid\operators\UnaryOperator;
 
 /**
  * Unit test case for the Mohiva Pyramid project.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -31,12 +31,12 @@ use com\mohiva\pyramid\operators\UnaryOperator;
  * @link      https://github.com/mohiva/pyramid
  */
 class UnaryOperatorTest extends \PHPUnit_Framework_TestCase {
-	
+
 	/**
 	 * Test all getters for the values set with the constructor.
 	 */
 	public function testConstructorAccessors() {
-		
+
 		$code = mt_rand(1, 100);
 		$precedence = mt_rand(1, 100);
 		$closure = function() {};
@@ -45,7 +45,7 @@ class UnaryOperatorTest extends \PHPUnit_Framework_TestCase {
 			$precedence,
 			$closure
 		);
-		
+
 		$this->assertSame($code, $operator->getCode());
 		$this->assertSame($precedence, $operator->getPrecedence());
 		$this->assertSame($closure, $operator->getNode());

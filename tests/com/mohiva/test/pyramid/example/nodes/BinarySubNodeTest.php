@@ -23,7 +23,7 @@ use com\mohiva\pyramid\example\nodes\BinarySubNode;
 
 /**
  * Unit test case for the Mohiva Pyramid project.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -32,16 +32,16 @@ use com\mohiva\pyramid\example\nodes\BinarySubNode;
  * @link      https://github.com/mohiva/pyramid
  */
 class BinarySubNodeTest extends \PHPUnit_Framework_TestCase {
-	
+
 	/**
 	 * Test if the `evaluate` method returns the correct value for the operation.
 	 */
 	public function testEvaluate() {
-		
+
 		$left = mt_rand(1, 100);
 		$right = mt_rand(1, 100);
 		$node = new BinarySubNode(new OperandNode($left), new OperandNode($right));
-		
+
 		$this->assertSame($left - $right, $node->evaluate());
 	}
 }

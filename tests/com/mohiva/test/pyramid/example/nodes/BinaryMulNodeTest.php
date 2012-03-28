@@ -23,7 +23,7 @@ use com\mohiva\pyramid\example\nodes\BinaryMulNode;
 
 /**
  * Unit test case for the Mohiva Pyramid project.
- * 
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -32,16 +32,16 @@ use com\mohiva\pyramid\example\nodes\BinaryMulNode;
  * @link      https://github.com/mohiva/pyramid
  */
 class BinaryMulNodeTest extends \PHPUnit_Framework_TestCase {
-	
+
 	/**
 	 * Test if the `evaluate` method returns the correct value for the operation.
 	 */
 	public function testEvaluate() {
-		
+
 		$left = mt_rand(1, 100);
 		$right = mt_rand(1, 100);
 		$node = new BinaryMulNode(new OperandNode($left), new OperandNode($right));
-		
+
 		$this->assertSame($left * $right, $node->evaluate());
 	}
 }
