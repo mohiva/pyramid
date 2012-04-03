@@ -36,7 +36,10 @@ interface Node {
 	/**
 	 * Evaluates the node.
 	 *
-	 * @return mixed The result of the evaluation.
+	 * This method has no return type specified, therefore it is possible to define the return
+	 * type in the concrete implementation. This is the desired behaviour. Because if we define
+	 * mixed, all concrete implementations must define the type mixed too, even if the method
+	 * returns always a string.
 	 */
 	public function evaluate();
 }
