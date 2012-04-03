@@ -35,7 +35,7 @@ class BinaryMulNode extends BinaryOperatorNode {
 	/**
 	 * Evaluates the node.
 	 *
-	 * @return mixed The result of the evaluation.
+	 * @return number The result of the evaluation.
 	 */
 	public function evaluate() {
 
