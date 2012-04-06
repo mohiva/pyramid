@@ -41,7 +41,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testBinaryOperation() {
 
-		$lexer = new Lexer(new TokenStream);
+		$lexer = new Lexer();
 		$stream = $lexer->scan('1.1 + 1.5');
 
 		$parser = new Parser(new Grammar());
@@ -55,7 +55,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testUnaryOperation() {
 
-		$lexer = new Lexer(new TokenStream);
+		$lexer = new Lexer();
 		$stream = $lexer->scan('-1.2 + 1 * 5');
 
 		$parser = new Parser(new Grammar());
@@ -69,7 +69,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testUnaryBetweenBinaryOperation() {
 
-		$lexer = new Lexer(new TokenStream);
+		$lexer = new Lexer();
 		$stream = $lexer->scan('4 / -1 * 5');
 
 		$parser = new Parser(new Grammar());
@@ -83,7 +83,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testUnaryPowerOperation() {
 
-		$lexer = new Lexer(new TokenStream);
+		$lexer = new Lexer();
 		$stream = $lexer->scan('5^-1 + -1^5');
 
 		$parser = new Parser(new Grammar());
@@ -97,7 +97,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testParenthesesOperation() {
 
-		$lexer = new Lexer(new TokenStream);
+		$lexer = new Lexer();
 		$stream = $lexer->scan('-(-1.2) + 1 + (( -2 + 5) * 6 * (5 - 5))');
 
 		$parser = new Parser(new Grammar());
@@ -111,7 +111,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testComplexOperation() {
 
-		$lexer = new Lexer(new TokenStream);
+		$lexer = new Lexer();
 		$stream = $lexer->scan('-(-1.1 + 1) * 5^6^3 / (4 / +5.568 * (2 % 8))');
 
 		$parser = new Parser(new Grammar());
@@ -127,7 +127,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testParsePrimaryThrowsException() {
 
-		$lexer = new Lexer(new TokenStream);
+		$lexer = new Lexer();
 		$stream = $lexer->scan('1 + 1 +');
 
 		$parser = new Parser(new Grammar());
@@ -140,7 +140,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testParseOperandThrowsException() {
 
-		$lexer = new Lexer(new TokenStream);
+		$lexer = new Lexer();
 		$stream = $lexer->scan('1 + test');
 
 		$parser = new Parser(new Grammar());

@@ -52,9 +52,8 @@ So lets talk about the steps to create your own language.
 use com\mohiva\pyramid\Parser;
 use com\mohiva\pyramid\example\Lexer;
 use com\mohiva\pyramid\example\Grammar;
-use com\mohiva\common\parser\TokenStream;
 
-$lexer = new Lexer(new TokenStream);
+$lexer = new Lexer();
 $stream = $lexer->scan('1.1 + 1.5');
 
 $parser = new Parser(new Grammar());
