@@ -38,10 +38,10 @@ class LexerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testCalculationSyntax() {
 
-		$lexer = new Lexer(new TokenStream());
-		$lexer->scan(' 12+4-1/3 * +0.4 + (-12 + 5^3) ');
+		$lexer = new Lexer();
+		$stream = $lexer->scan(' 12+4-1/3 * +0.4 + (-12 + 5^3) ');
 
-		$actual = $this->buildActualTokens($lexer->getStream());
+		$actual = $this->buildActualTokens($stream);
 		$expected = array(
 			array(Lexer::T_NUMBER => '12'),
 			array(Lexer::T_PLUS => '+'),
@@ -72,10 +72,10 @@ class LexerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testNoneToken() {
 
-		$lexer = new Lexer(new TokenStream());
-		$lexer->scan(' # ');
+		$lexer = new Lexer();
+		$stream = $lexer->scan(' # ');
 
-		$actual = $this->buildActualTokens($lexer->getStream());
+		$actual = $this->buildActualTokens($stream);
 		$expected = array(
 			array(Lexer::T_NONE => '#'),
 		);
