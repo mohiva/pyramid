@@ -6,7 +6,8 @@ php:
 before_script:
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install
-  - phpunit --configuration phpunit.travis.xml ./tests/com/mohiva/test/pyramid
+
+script: phpunit --configuration phpunit.travis.xml ./tests/com/mohiva/test/pyramid
 
 notifications:
   email:
