@@ -4,18 +4,14 @@ The Mohiva Pyramid project is an "operator precedence parser":http://en.wikipedi
 
 h2. Installation
 
-As first you must clone the repository.
+You can install the library through "composer":http://getcomposer.org. All you need is to add it as dependency to your composer.json.
 
-<pre lang="sh">
-git clone git://github.com/mohiva/pyramid.git
-</pre>
-
-Then you must fetch the dependencies.
-
-<pre lang="sh">
-cd pyramid
-git submodule init
-git submodule update
+<pre lang="js">
+{
+    "require": {
+        "mohiva/pyramid": "dev-master"
+    }
+}
 </pre>
 
 h2. Requirements

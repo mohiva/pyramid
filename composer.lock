@@ -1,0 +1,19 @@
+{
+    "hash": "4d1ece5e1bfcbdb7a386d500eab653be",
+    "packages": [
+        {
+            "package": "mohiva/common",
+            "version": "dev-master",
+            "source-reference": "6db519f8b5df6c63135c69d12bf149e412942664",
+            "commit-date": "1341602421"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "mohiva/common": 20
+    }
+}

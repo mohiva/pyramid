@@ -10,6 +10,6 @@
     ],
     "require": {
         "php": ">=5.4",
-        "mohiva/common": "master"
+        "mohiva/common": "dev-master"
     }
 }
