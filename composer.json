@@ -11,5 +11,8 @@
     "require": {
         "php": ">=5.4",
         "mohiva/common": "dev-master"
-    }
+    },
+	"autoload": {
+		"psr-0": {"com\\mohiva\\pyramid": "src/"}
+	}
 }
