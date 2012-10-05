@@ -21,7 +21,7 @@ namespace com\mohiva\pyramid\nodes;
 use com\mohiva\pyramid\Node;
 
 /**
- * Represents a binary operator node.
+ * Represents an unary operator node.
  *
  * An unary operator can only have on child node.
  *
@@ -37,14 +37,14 @@ abstract class UnaryOperatorNode implements Node {
 	/**
 	 * The child node.
 	 *
-	 * @var \com\mohiva\pyramid\Node
+	 * @var Node
 	 */
 	protected $node = null;
 
 	/**
 	 * The class constructor.
 	 *
-	 * @param \com\mohiva\pyramid\Node $node The child node.
+	 * @param Node $node The child node.
 	 */
 	public function __construct(Node $node) {
 

@@ -48,7 +48,7 @@ class Parser {
 	/**
 	 * The stream to parse.
 	 *
-	 * @var \com\mohiva\common\parser\TokenStream
+	 * @var TokenStream
 	 */
 	private $stream = null;
 
@@ -65,7 +65,7 @@ class Parser {
 	/**
 	 * Parse the token stream and return the resulting parse tree.
 	 *
-	 * @param \com\mohiva\common\parser\TokenStream $stream The stream to parse.
+	 * @param TokenStream $stream The stream to parse.
 	 * @return Node The root of the node tree.
 	 */
 	public function parse(TokenStream $stream) {
@@ -112,7 +112,7 @@ class Parser {
 	 * Parse primary expression.
 	 *
 	 * @return Node The primary node.
-	 * @throws \com\mohiva\common\exceptions\SyntaxErrorException if no operand or unary operator can be found.
+	 * @throws SyntaxErrorException if no operand or unary operator can be found.
 	 */
 	private function parsePrimary() {
 
@@ -138,7 +138,7 @@ class Parser {
 	 * Parse the operand.
 	 *
 	 * @return Node The node object for the operand.
-	 * @throws \com\mohiva\common\exceptions\SyntaxErrorException if no operand parser can be found for
+	 * @throws SyntaxErrorException if no operand parser can be found for
 	 * the current token.
 	 */
 	private function parseOperand() {

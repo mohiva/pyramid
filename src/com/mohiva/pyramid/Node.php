@@ -19,7 +19,7 @@
 namespace com\mohiva\pyramid;
 
 /**
- * Represents a expression node.
+ * Represents an expression node.
  *
  * A node can be the root node or a node which contains multiple
  * nodes or a leaf.

@@ -54,8 +54,8 @@ interface Operand {
 	 * @param Grammar $grammar The grammar of the parser. This is passed to create a new `Parser` to parse
 	 * sub expressions.
 	 *
-	 * @param \com\mohiva\common\parser\TokenStream $stream The token stream to parse.
-     * @return Node The parsed operand node.
+	 * @param TokenStream $stream The token stream to parse.
+	 * @return Node The parsed operand node.
 	 */
 	public function parse(Grammar $grammar, TokenStream $stream);
 }

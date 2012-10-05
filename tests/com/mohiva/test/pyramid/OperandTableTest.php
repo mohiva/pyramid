@@ -39,12 +39,12 @@ class OperandTableTest extends \PHPUnit_Framework_TestCase {
 	public function testOperandAccessors() {
 
 		/* @var \PHPUnit_Framework_MockObject_MockObject $operand */
-		/* @var \com\mohiva\pyramid\Operand $operand */
 		$operand = $this->getMock('com\mohiva\pyramid\Operand');
 		$operand->expects($this->any())
 			->method('getIdentifiers')
 			->will($this->returnValue(array(1)));
 
+		/* @var \com\mohiva\pyramid\Operand $operand */
 		$token = new Token(1, 1, 1);
 		$table = new OperandTable();
 		$table->addOperand($operand);
@@ -60,19 +60,19 @@ class OperandTableTest extends \PHPUnit_Framework_TestCase {
 	public function testAddOperandThrowsException() {
 
 		/* @var \PHPUnit_Framework_MockObject_MockObject $operand1 */
-		/* @var \com\mohiva\pyramid\Operand $operand1 */
 		$operand1 = $this->getMock('com\mohiva\pyramid\Operand');
 		$operand1->expects($this->any())
 			->method('getIdentifiers')
 			->will($this->returnValue(array(1)));
 
 		/* @var \PHPUnit_Framework_MockObject_MockObject $operand2 */
-		/* @var \com\mohiva\pyramid\Operand $operand2 */
 		$operand2 = $this->getMock('com\mohiva\pyramid\Operand');
 		$operand2->expects($this->any())
 			->method('getIdentifiers')
 			->will($this->returnValue(array(1)));
 
+		/* @var \com\mohiva\pyramid\Operand $operand1 */
+		/* @var \com\mohiva\pyramid\Operand $operand2 */
 		$table = new OperandTable();
 		$table->addOperand($operand1);
 		$table->addOperand($operand2);
@@ -84,12 +84,12 @@ class OperandTableTest extends \PHPUnit_Framework_TestCase {
 	public function testIsRegisteredReturnsTrue() {
 
 		/* @var \PHPUnit_Framework_MockObject_MockObject $operand */
-		/* @var \com\mohiva\pyramid\Operand $operand */
 		$operand = $this->getMock('com\mohiva\pyramid\Operand');
 		$operand->expects($this->any())
 			->method('getIdentifiers')
 			->will($this->returnValue(array(1)));
 
+		/* @var \com\mohiva\pyramid\Operand $operand */
 		$token = new Token(1, 1, 1);
 		$table = new OperandTable();
 		$table->addOperand($operand);
