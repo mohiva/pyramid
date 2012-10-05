@@ -79,7 +79,7 @@ class Lexer {
 	 * Tokenize the given input string and return the resulting token stream.
 	 *
 	 * @param string $input The string input to scan.
-	 * @return \com\mohiva\common\parser\TokenStream The resulting token stream.
+	 * @return TokenStream The resulting token stream.
 	 */
 	public function scan($input) {
 
@@ -93,7 +93,7 @@ class Lexer {
 	 * Transform the input string into a token stream.
 	 *
 	 * @param string $input The string input to tokenize.
-	 * @return \com\mohiva\common\parser\TokenStream The resulting token stream.
+	 * @return TokenStream The resulting token stream.
 	 */
 	private function tokenize($input) {
 

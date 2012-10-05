@@ -85,7 +85,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Create an array from the token stream which contains only the tokens and the operators/values.
 	 *
-	 * @param \com\mohiva\common\parser\TokenStream $stream The stream containing the lexer tokens.
+	 * @param TokenStream $stream The stream containing the lexer tokens.
 	 * @return array The actual list with tokens and operators/values.
 	 */
 	private function buildActualTokens(TokenStream $stream) {
