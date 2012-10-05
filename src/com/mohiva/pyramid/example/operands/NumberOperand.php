@@ -49,9 +49,9 @@ class NumberOperand implements Operand {
 	/**
 	 * Parse the operand.
 	 *
-	 * @param \com\mohiva\pyramid\Grammar $grammar The grammar of the parser.
-	 * @param \com\mohiva\common\parser\TokenStream $stream The token stream to parse.
-	 * @return \com\mohiva\pyramid\example\nodes\OperandNode The operand node.
+	 * @param Grammar $grammar The grammar of the parser.
+	 * @param TokenStream $stream The token stream to parse.
+	 * @return OperandNode The operand node.
 	 */
 	public function parse(Grammar $grammar, TokenStream $stream) {
 

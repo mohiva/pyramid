@@ -54,12 +54,12 @@ class GrammarTest extends \PHPUnit_Framework_TestCase {
 	public function testOperandTableAccessors() {
 
 		/* @var \PHPUnit_Framework_MockObject_MockObject $operand */
-		/* @var \com\mohiva\pyramid\Operand $operand */
 		$operand = $this->getMock('com\mohiva\pyramid\Operand');
 		$operand->expects($this->any())
 			->method('getIdentifiers')
 			->will($this->returnValue(array(1)));
 
+		/* @var \com\mohiva\pyramid\Operand $operand */
 		$token = new Token(1, 1, 1);
 		$grammar = new Grammar();
 		$grammar->addOperand($operand);

@@ -25,6 +25,7 @@ use com\mohiva\pyramid\Token;
 use com\mohiva\pyramid\Parser;
 use com\mohiva\pyramid\Grammar;
 use com\mohiva\pyramid\Operand;
+use com\mohiva\pyramid\Node;
 
 /**
  * Operand which parses expressions between parentheses.
@@ -54,10 +55,10 @@ class ParenthesesOperand implements Operand {
 	 * This example shows how you should parse sub expressions. You must only create a
 	 * new parser with the passed grammar and token stream.
 	 *
-	 * @param \com\mohiva\pyramid\Grammar $grammar The grammar of the parser.
-	 * @param \com\mohiva\common\parser\TokenStream $stream The token stream to parse.
-	 * @return \com\mohiva\pyramid\Node The node between the parentheses.
-	 * @throws \com\mohiva\common\exceptions\SyntaxErrorException if an unexpected token was found.
+	 * @param Grammar $grammar The grammar of the parser.
+	 * @param TokenStream $stream The token stream to parse.
+	 * @return Node The node between the parentheses.
+	 * @throws SyntaxErrorException if an unexpected token was found.
 	 */
 	public function parse(Grammar $grammar, TokenStream $stream) {
 

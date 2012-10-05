@@ -37,22 +37,22 @@ abstract class BinaryOperatorNode implements Node {
 	/**
 	 * The left child node.
 	 *
-	 * @var \com\mohiva\pyramid\Node
+	 * @var Node
 	 */
 	protected $left = null;
 
 	/**
 	 * The right child node.
 	 *
-	 * @var \com\mohiva\pyramid\Node
+	 * @var Node
 	 */
 	protected $right = null;
 
 	/**
 	 * The class constructor.
 	 *
-	 * @param \com\mohiva\pyramid\Node $left The left child node.
-	 * @param \com\mohiva\pyramid\Node $right The right child node.
+	 * @param Node $left The left child node.
+	 * @param Node $right The right child node.
 	 */
 	public function __construct(Node $left, Node $right) {
 
