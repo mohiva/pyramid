@@ -19,7 +19,7 @@
 namespace com\mohiva\test\pyramid\example\nodes;
 
 use com\mohiva\pyramid\example\nodes\OperandNode;
-use com\mohiva\pyramid\example\nodes\TernaryNode;
+use com\mohiva\pyramid\example\nodes\TernaryIfNode;
 
 /**
  * Unit test case for the Mohiva Pyramid project.
@@ -31,7 +31,7 @@ use com\mohiva\pyramid\example\nodes\TernaryNode;
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-class TernaryNodeTest extends \PHPUnit_Framework_TestCase {
+class TernaryIfNodeTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * Test if the `evaluate` method returns the correct value for the operation, if the condition
@@ -42,7 +42,7 @@ class TernaryNodeTest extends \PHPUnit_Framework_TestCase {
 		$condition = 1;
 		$if = 1;
 		$else = 2;
-		$node = new TernaryNode(new OperandNode($condition), new OperandNode($if), new OperandNode($else));
+		$node = new TernaryIfNode(new OperandNode($condition), new OperandNode($if), new OperandNode($else));
 
 		$this->assertSame($if, $node->evaluate());
 	}
@@ -56,7 +56,7 @@ class TernaryNodeTest extends \PHPUnit_Framework_TestCase {
 		$condition = 0;
 		$if = 1;
 		$else = 2;
-		$node = new TernaryNode(new OperandNode($condition), new OperandNode($if), new OperandNode($else));
+		$node = new TernaryIfNode(new OperandNode($condition), new OperandNode($if), new OperandNode($else));
 
 		$this->assertSame($else, $node->evaluate());
 	}

@@ -21,7 +21,7 @@ namespace com\mohiva\pyramid\example\nodes;
 use com\mohiva\pyramid\nodes\TernaryOperatorNode;
 
 /**
- * Represents a ternary operation.
+ * Represents a ternary if operation.
  *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Example/Nodes
@@ -30,7 +30,7 @@ use com\mohiva\pyramid\nodes\TernaryOperatorNode;
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-class TernaryNode extends TernaryOperatorNode {
+class TernaryIfNode extends TernaryOperatorNode {
 
 	/**
 	 * Evaluates the node.

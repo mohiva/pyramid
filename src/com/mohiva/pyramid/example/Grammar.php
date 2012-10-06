@@ -22,7 +22,7 @@ use com\mohiva\pyramid\Grammar as ParserGrammar;
 use com\mohiva\pyramid\operators\TernaryOperator;
 use com\mohiva\pyramid\operators\BinaryOperator;
 use com\mohiva\pyramid\operators\UnaryOperator;
-use com\mohiva\pyramid\example\nodes\TernaryNode;
+use com\mohiva\pyramid\example\nodes\TernaryIfNode;
 use com\mohiva\pyramid\example\nodes\UnaryPosNode;
 use com\mohiva\pyramid\example\nodes\UnaryNegNode;
 use com\mohiva\pyramid\example\nodes\BinaryAddNode;
@@ -62,7 +62,7 @@ class Grammar extends ParserGrammar {
 			return new UnaryNegNode($node);
 		}));
 		$this->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 0, TernaryOperator::RIGHT,
-			function($condition, $if, $else) { return new TernaryNode($condition, $if, $else); }
+			function($condition, $if, $else) { return new TernaryIfNode($condition, $if, $else); }
 		));
 		$this->addOperator(new BinaryOperator(Lexer::T_PLUS, 1, BinaryOperator::LEFT, function($left, $right) {
 			return new BinaryAddNode($left, $right);
