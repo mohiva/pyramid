@@ -48,19 +48,19 @@ h2. How to use
 The library comes with an "example":pyramid/tree/master/src/com/mohiva/pyramid/example of how to use it. This example uses a simple "grammar":pyramid/blob/master/src/com/mohiva/pyramid/example/Grammar.php. It's a very simple calculator with the following precedence table.
 
 |\3. Unary         |
-| - | Negative | 4 |
-| + | Positive | 4 |
+| - | Negative | 5 |
+| + | Positive | 5 |
 
 |\4. Binary                                  |
-| + | Addition       | 1 | left associative  |
-| - | Subtraction    | 1 | left associative  |
-| * | Multiplication | 2 | left associative  |
-| / | Division       | 2 | left associative  |
-| % | Modulo         | 2 | left associative  |
-| ^ | Exponentiation | 3 | right associative |
+| + | Addition       | 2 | left associative  |
+| - | Subtraction    | 2 | left associative  |
+| * | Multiplication | 3 | left associative  |
+| / | Division       | 3 | left associative  |
+| % | Modulo         | 3 | left associative  |
+| ^ | Exponentiation | 4 | right associative |
 
 |\4. Ternary                                 |
-| ?: | Ternary if    | 0 | right associative |
+| ?: | Ternary if    | 1 | right associative |
 
 The calculator can deal with "parentheses":pyramid/blob/master/src/com/mohiva/pyramid/example/operands/ParenthesesOperand.php, "integer and floating-point values":pyramid/blob/master/src/com/mohiva/pyramid/example/operands/NumberOperand.php.
 

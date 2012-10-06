@@ -150,7 +150,7 @@ class Parser {
 		$operatorTable = $this->grammar->getOperatorTable();
 		while (($token = $this->stream->current())) {
 			$op = $operatorTable->isTernary($token) ? $operatorTable->getTernaryOperator($token) : null;
-			if ($op === null || $op->getPrecedence() !== $precedence || $op->getIfCode() !== $token->getCode()) {
+			if ($op === null || $op->getPrecedence() < $precedence || $op->getIfCode() !== $token->getCode()) {
 				break;
 			}
 
