@@ -48,6 +48,8 @@ class Lexer {
 	const T_DIV               = 7;  // /
 	const T_MOD               = 8;  // %
 	const T_POWER             = 9;  // ^
+	const T_QUESTION_MARK     = 10; // ?
+	const T_COLON             = 11; // :
 
 	/**
 	 * The lexemes to find the tokens.
@@ -72,7 +74,9 @@ class Lexer {
 		'*' => self::T_MUL,
 		'/' => self::T_DIV,
 		'%' => self::T_MOD,
-		'^' => self::T_POWER
+		'^' => self::T_POWER,
+		'?' => self::T_QUESTION_MARK,
+		':' => self::T_COLON
 	);
 
 	/**

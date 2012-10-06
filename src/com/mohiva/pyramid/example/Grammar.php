@@ -19,8 +19,10 @@
 namespace com\mohiva\pyramid\example;
 
 use com\mohiva\pyramid\Grammar as ParserGrammar;
+use com\mohiva\pyramid\operators\TernaryOperator;
 use com\mohiva\pyramid\operators\BinaryOperator;
 use com\mohiva\pyramid\operators\UnaryOperator;
+use com\mohiva\pyramid\example\nodes\TernaryNode;
 use com\mohiva\pyramid\example\nodes\UnaryPosNode;
 use com\mohiva\pyramid\example\nodes\UnaryNegNode;
 use com\mohiva\pyramid\example\nodes\BinaryAddNode;
@@ -53,28 +55,31 @@ class Grammar extends ParserGrammar {
 
 		// Note: unary +/- operators must have higher precedence as all binary operators
 		// http://www.antlr.org/pipermail/antlr-dev/2009-April/002255.html
-		$this->addOperator(new UnaryOperator(Lexer::T_PLUS, 3, function($node) {
+		$this->addOperator(new UnaryOperator(Lexer::T_PLUS, 4, function($node) {
 			return new UnaryPosNode($node);
 		}));
-		$this->addOperator(new UnaryOperator(Lexer::T_MINUS, 3, function($node) {
+		$this->addOperator(new UnaryOperator(Lexer::T_MINUS, 4, function($node) {
 			return new UnaryNegNode($node);
 		}));
-		$this->addOperator(new BinaryOperator(Lexer::T_PLUS, 0, BinaryOperator::LEFT, function($left, $right) {
+		$this->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 0, TernaryOperator::RIGHT,
+			function($condition, $if, $else) { return new TernaryNode($condition, $if, $else); }
+		));
+		$this->addOperator(new BinaryOperator(Lexer::T_PLUS, 1, BinaryOperator::LEFT, function($left, $right) {
 			return new BinaryAddNode($left, $right);
 		}));
-		$this->addOperator(new BinaryOperator(Lexer::T_MINUS, 0, BinaryOperator::LEFT, function($left, $right) {
+		$this->addOperator(new BinaryOperator(Lexer::T_MINUS, 1, BinaryOperator::LEFT, function($left, $right) {
 			return new BinarySubNode($left, $right);
 		}));
-		$this->addOperator(new BinaryOperator(Lexer::T_MUL, 1, BinaryOperator::LEFT, function($left, $right) {
+		$this->addOperator(new BinaryOperator(Lexer::T_MUL, 2, BinaryOperator::LEFT, function($left, $right) {
 			return new BinaryMulNode($left, $right);
 		}));
-		$this->addOperator(new BinaryOperator(Lexer::T_DIV, 1, BinaryOperator::LEFT, function($left, $right) {
+		$this->addOperator(new BinaryOperator(Lexer::T_DIV, 2, BinaryOperator::LEFT, function($left, $right) {
 			return new BinaryDivNode($left, $right);
 		}));
-		$this->addOperator(new BinaryOperator(Lexer::T_MOD, 1, BinaryOperator::LEFT, function($left, $right) {
+		$this->addOperator(new BinaryOperator(Lexer::T_MOD, 2, BinaryOperator::LEFT, function($left, $right) {
 			return new BinaryModNode($left, $right);
 		}));
-		$this->addOperator(new BinaryOperator(Lexer::T_POWER, 2, BinaryOperator::RIGHT, function($left, $right) {
+		$this->addOperator(new BinaryOperator(Lexer::T_POWER, 3, BinaryOperator::RIGHT, function($left, $right) {
 			return new BinaryPowerNode($left, $right);
 		}));
 
