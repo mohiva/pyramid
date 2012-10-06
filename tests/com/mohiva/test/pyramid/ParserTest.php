@@ -24,7 +24,7 @@ use com\mohiva\pyramid\example\Lexer;
 use com\mohiva\pyramid\example\Grammar as ExampleGrammar;
 use com\mohiva\pyramid\example\operands\ParenthesesOperand;
 use com\mohiva\pyramid\example\operands\NumberOperand;
-use com\mohiva\pyramid\example\nodes\TernaryNode;
+use com\mohiva\pyramid\example\nodes\TernaryIfNode;
 use com\mohiva\pyramid\operators\TernaryOperator;
 use com\mohiva\common\parser\TokenStream;
 use com\mohiva\common\exceptions\SyntaxErrorException;
@@ -143,7 +143,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 
 		$grammar = new Grammar();
 		$grammar->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 0, TernaryOperator::RIGHT,
-			function($condition, $if, $else) { return new TernaryNode($condition, $if, $else); }
+			function($condition, $if, $else) { return new TernaryIfNode($condition, $if, $else); }
 		));
 		$grammar->addOperand(new NumberOperand());
 		$grammar->addOperand(new ParenthesesOperand());
@@ -172,7 +172,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 
 		$grammar = new Grammar();
 		$grammar->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 0, TernaryOperator::LEFT,
-			function($condition, $if, $else) { return new TernaryNode($condition, $if, $else); }
+			function($condition, $if, $else) { return new TernaryIfNode($condition, $if, $else); }
 		));
 		$grammar->addOperand(new NumberOperand());
 		$grammar->addOperand(new ParenthesesOperand());
@@ -200,7 +200,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 
 		$grammar = new Grammar();
 		$grammar->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 0, TernaryOperator::LEFT,
-			function($condition, $if, $else) { return new TernaryNode($condition, $if, $else); }
+			function($condition, $if, $else) { return new TernaryIfNode($condition, $if, $else); }
 		));
 		$grammar->addOperand(new NumberOperand());
 		$grammar->addOperand(new ParenthesesOperand());
