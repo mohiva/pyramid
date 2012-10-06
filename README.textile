@@ -9,23 +9,29 @@ You can install the library through "composer":http://getcomposer.org.
 1. Add @mohiva/pyramid@ as a dependency to your @composer.json@ file:
 
 <pre lang="js">
+<code>
 {
     "require": {
         "mohiva/pyramid": "dev-master"
     }
 }
+</code>
 </pre>
 
 2. Download and install Composer:
 
 <pre lang="shell">
+<code>
 curl -s http://getcomposer.org/installer | php
+</code>
 </pre>
 
 3. Install your dependencies:
 
 <pre lang="shell">
+<code>
 php composer.phar install
+</code>
 </pre>
 
 4. Use Composer's autoloader
