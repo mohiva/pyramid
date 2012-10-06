@@ -18,10 +18,10 @@
  */
 namespace com\mohiva\pyramid\example\nodes;
 
-use com\mohiva\pyramid\nodes\BinaryOperatorNode;
+use com\mohiva\pyramid\nodes\TernaryOperatorNode;
 
 /**
- * Represents a binary exponentiation.
+ * Represents a ternary operation.
  *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Example/Nodes
@@ -30,7 +30,7 @@ use com\mohiva\pyramid\nodes\BinaryOperatorNode;
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-class BinaryPowerNode extends BinaryOperatorNode {
+class TernaryNode extends TernaryOperatorNode {
 
 	/**
 	 * Evaluates the node.
@@ -39,6 +39,10 @@ class BinaryPowerNode extends BinaryOperatorNode {
 	 */
 	public function evaluate() {
 
-		return pow($this->left->evaluate(), $this->right->evaluate());
+		if ($this->conditionNode->evaluate()) {
+			return $this->ifNode->evaluate();
+		} else {
+			return $this->elseNode->evaluate();
+		}
 	}
 }

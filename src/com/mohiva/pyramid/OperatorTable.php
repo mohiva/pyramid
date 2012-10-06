@@ -19,6 +19,7 @@
 namespace com\mohiva\pyramid;
 
 use com\mohiva\pyramid\operators\BinaryOperator;
+use com\mohiva\pyramid\operators\TernaryOperator;
 use com\mohiva\pyramid\operators\UnaryOperator;
 use com\mohiva\pyramid\exceptions\UnsupportedOperatorException;
 
@@ -39,14 +40,24 @@ class OperatorTable {
 	 *
 	 * @var array
 	 */
-	private $unary = array();
+	private $unary = [];
 
 	/**
 	 * The binary operator table.
 	 *
 	 * @var array
 	 */
-	private $binary = array();
+	private $binary = [];
+
+	/**
+	 * The ternary operator table.
+	 *
+	 * @var array
+	 */
+	private $ternary = [
+		'if' => [],
+		'else' => []
+	];
 
 	/**
 	 * Adds a new operator to the table.
@@ -60,6 +71,9 @@ class OperatorTable {
 			$this->binary[$operator->getCode()] = $operator;
 		} else if ($operator instanceof UnaryOperator) {
 			$this->unary[$operator->getCode()] = $operator;
+		} else if ($operator instanceof TernaryOperator) {
+			$this->ternary['if'][$operator->getIfCode()] = $operator;
+			$this->ternary['else'][$operator->getElseCode()] = $operator;
 		} else {
 			$type = get_class($operator);
 			throw new UnsupportedOperatorException("The operator type `{$type}` isn't supported");
@@ -86,6 +100,17 @@ class OperatorTable {
 	public function isUnary(Token $token) {
 
 		return isset($this->unary[$token->getCode()]);
+	}
+
+	/**
+	 * Check if the given token is a ternary operator.
+	 *
+	 * @param Token $token The token to check for.
+	 * @return boolean True if the given token is a ternary operator, false otherwise.
+	 */
+	public function isTernary(Token $token) {
+
+		return isset($this->ternary['if'][$token->getCode()]) || isset($this->ternary['else'][$token->getCode()]);
 	}
 
 	/**
@@ -118,5 +143,23 @@ class OperatorTable {
 		}
 
 		throw new UnsupportedOperatorException("No unary operator with code `{$token->getCode()}` exists in table");
+	}
+
+	/**
+	 * Gets an ternary operator from table.
+	 *
+	 * @param Token $token The token for which the operator should be returned.
+	 * @return operators\TernaryOperator The operator object for the given token.
+	 * @throws UnsupportedOperatorException if the operator doesn't exists in table.
+	 */
+	public function getTernaryOperator(Token $token) {
+
+		if (isset($this->ternary['if'][$token->getCode()])) {
+			return $this->ternary['if'][$token->getCode()];
+		} else if (isset($this->ternary['else'][$token->getCode()])) {
+			return $this->ternary['else'][$token->getCode()];
+		}
+
+		throw new UnsupportedOperatorException("No ternary operator with code `{$token->getCode()}` exists in table");
 	}
 }

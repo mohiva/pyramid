@@ -19,7 +19,7 @@
 namespace com\mohiva\pyramid;
 
 /**
- * Represents a document expression operator.
+ * Represents an operator.
  *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid
@@ -29,13 +29,6 @@ namespace com\mohiva\pyramid;
  * @link      https://github.com/mohiva/pyramid
  */
 interface Operator {
-
-	/**
-	 * Returns the operator code.
-	 *
-	 * @return int The operator code.
-	 */
-	public function getCode();
 
 	/**
 	 * Returns the precedence of the operator.

@@ -19,8 +19,13 @@
 namespace com\mohiva\test\pyramid;
 
 use com\mohiva\pyramid\Parser;
+use com\mohiva\pyramid\Grammar;
 use com\mohiva\pyramid\example\Lexer;
-use com\mohiva\pyramid\example\Grammar;
+use com\mohiva\pyramid\example\Grammar as ExampleGrammar;
+use com\mohiva\pyramid\example\operands\ParenthesesOperand;
+use com\mohiva\pyramid\example\operands\NumberOperand;
+use com\mohiva\pyramid\example\nodes\TernaryNode;
+use com\mohiva\pyramid\operators\TernaryOperator;
 use com\mohiva\common\parser\TokenStream;
 use com\mohiva\common\exceptions\SyntaxErrorException;
 
@@ -44,7 +49,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$lexer = new Lexer();
 		$stream = $lexer->scan('1.1 + 1.5');
 
-		$parser = new Parser(new Grammar());
+		$parser = new Parser(new ExampleGrammar());
 		$node = $parser->parse($stream);
 
 		$this->assertSame(1.1 + 1.5, $node->evaluate());
@@ -58,7 +63,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$lexer = new Lexer();
 		$stream = $lexer->scan('-1.2 + 1 * 5');
 
-		$parser = new Parser(new Grammar());
+		$parser = new Parser(new ExampleGrammar());
 		$node = $parser->parse($stream);
 
 		$this->assertSame(-1.2 + 1 * 5, $node->evaluate());
@@ -72,7 +77,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$lexer = new Lexer();
 		$stream = $lexer->scan('4 / -1 * 5');
 
-		$parser = new Parser(new Grammar());
+		$parser = new Parser(new ExampleGrammar());
 		$node = $parser->parse($stream);
 
 		$this->assertSame(4 / -1 * 5, $node->evaluate());
@@ -86,7 +91,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$lexer = new Lexer();
 		$stream = $lexer->scan('5^-1 + -1^5');
 
-		$parser = new Parser(new Grammar());
+		$parser = new Parser(new ExampleGrammar());
 		$node = $parser->parse($stream);
 
 		$this->assertSame(pow(5, -1) + pow(-1, 5), $node->evaluate());
@@ -100,7 +105,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$lexer = new Lexer();
 		$stream = $lexer->scan('-(-1.2) + 1 + (( -2 + 5) * 6 * (5 - 5))');
 
-		$parser = new Parser(new Grammar());
+		$parser = new Parser(new ExampleGrammar());
 		$node = $parser->parse($stream);
 
 		$this->assertSame(-(-1.2) + 1 + (( -2 + 5) * 6 * (5 - 5)), $node->evaluate());
@@ -114,14 +119,100 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$lexer = new Lexer();
 		$stream = $lexer->scan('-(-1.1 + 1) * 5^6^3 / (4 / +5.568 * (2 % 8))');
 
-		$parser = new Parser(new Grammar());
+		$parser = new Parser(new ExampleGrammar());
 		$node = $parser->parse($stream);
 
 		$this->assertSame(-(-1.1 + 1) * pow(5, pow(6, 3)) / (4 / +5.568 * (2 % 8)), $node->evaluate());
 	}
 
 	/**
-	 * Test if the `parsePrimary` method throws an exception if no operand or unary operator can be found.
+	 * Test the right associative ternary operator.
+	 *
+	 * @see http://en.wikipedia.org/wiki/%3F:#PHP
+	 */
+	public function testRightAssociativeTernaryOperator() {
+
+		$lexer = new Lexer();
+		$stream = $lexer->scan('(
+			0 ? 1 :
+			0 ? 2 :
+			1 ? 3 :
+			0 ? 4 :
+			0 ? 5 :
+				6)');
+
+		$grammar = new Grammar();
+		$grammar->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 0, TernaryOperator::RIGHT,
+			function($condition, $if, $else) { return new TernaryNode($condition, $if, $else); }
+		));
+		$grammar->addOperand(new NumberOperand());
+		$grammar->addOperand(new ParenthesesOperand());
+
+		$parser = new Parser($grammar);
+		$node = $parser->parse($stream);
+
+		$this->assertSame('3', $node->evaluate());
+	}
+
+	/**
+	 * Test the left associative ternary operator.
+	 *
+	 * @see http://en.wikipedia.org/wiki/%3F:#PHP
+	 */
+	public function testLeftAssociativeTernaryOperator() {
+
+		$lexer = new Lexer();
+		$stream = $lexer->scan('(
+			0 ? 1 :
+			0 ? 2 :
+			1 ? 3 :
+			0 ? 4 :
+			0 ? 5 :
+				6)');
+
+		$grammar = new Grammar();
+		$grammar->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 0, TernaryOperator::LEFT,
+			function($condition, $if, $else) { return new TernaryNode($condition, $if, $else); }
+		));
+		$grammar->addOperand(new NumberOperand());
+		$grammar->addOperand(new ParenthesesOperand());
+
+		$parser = new Parser($grammar);
+		$node = $parser->parse($stream);
+
+		$this->assertSame('5', $node->evaluate());
+	}
+
+	/**
+	 * Test the left associative ternary operator.
+	 *
+	 * @see http://en.wikipedia.org/wiki/%3F:#PHP
+	 */
+	public function testFixForLeftAssociativeTernaryOperator() {
+
+		$lexer = new Lexer();
+		$stream = $lexer->scan('
+			0 ? 1 :
+			(0 ? 2 :
+			(1 ? 3 :
+			(0 ? 4 :
+			(0 ? 5 : 6))))');
+
+		$grammar = new Grammar();
+		$grammar->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 0, TernaryOperator::LEFT,
+			function($condition, $if, $else) { return new TernaryNode($condition, $if, $else); }
+		));
+		$grammar->addOperand(new NumberOperand());
+		$grammar->addOperand(new ParenthesesOperand());
+
+		$parser = new Parser($grammar);
+		$node = $parser->parse($stream);
+
+		$this->assertSame('3', $node->evaluate());
+	}
+
+	/**
+	 * Test if the parser throws an exception if no operand or unary operator can be found.
 	 *
 	 * @expectedException \com\mohiva\common\exceptions\SyntaxErrorException
 	 */
@@ -130,12 +221,42 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$lexer = new Lexer();
 		$stream = $lexer->scan('1 + 1 +');
 
-		$parser = new Parser(new Grammar());
+		$parser = new Parser(new ExampleGrammar());
 		$parser->parse($stream);
 	}
 
 	/**
-	 * Test if the `parseOperand` method throws an exception if an operand parser cannot
+	 * Test if the parser throws an exception if an unexpected token instead of the `else` token of a
+	 * ternary operator was found.
+	 *
+	 * @expectedException \com\mohiva\common\exceptions\SyntaxErrorException
+	 */
+	public function testParseTernaryThrowsExceptionForUnexpectedElseToken() {
+
+		$lexer = new Lexer();
+		$stream = $lexer->scan('1 ? 1 #');
+
+		$parser = new Parser(new ExampleGrammar());
+		$parser->parse($stream);
+	}
+
+	/**
+	 * Test if the parser throws an exception if the end of the stream is reached, when expecting the `else`
+	 * token of a ternary operator.
+	 *
+	 * @expectedException \com\mohiva\common\exceptions\SyntaxErrorException
+	 */
+	public function testParseTernaryThrowsExceptionIfEndOfStreamIsReached() {
+
+		$lexer = new Lexer();
+		$stream = $lexer->scan('1 ? 1');
+
+		$parser = new Parser(new ExampleGrammar());
+		$parser->parse($stream);
+	}
+
+	/**
+	 * Test if the parser throws an exception if an operand parser cannot
 	 * be found for an token.
 	 */
 	public function testParseOperandThrowsException() {
@@ -143,7 +264,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$lexer = new Lexer();
 		$stream = $lexer->scan('1 + test');
 
-		$parser = new Parser(new Grammar());
+		$parser = new Parser(new ExampleGrammar());
 		try {
 			$parser->parse($stream);
 		} catch (SyntaxErrorException $e) {

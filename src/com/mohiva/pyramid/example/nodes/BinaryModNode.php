@@ -21,7 +21,7 @@ namespace com\mohiva\pyramid\example\nodes;
 use com\mohiva\pyramid\nodes\BinaryOperatorNode;
 
 /**
- * Represents an binary modulo.
+ * Represents a binary modulo.
  *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Example/Nodes

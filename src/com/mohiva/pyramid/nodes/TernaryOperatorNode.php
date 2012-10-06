@@ -10,35 +10,62 @@
  * https://github.com/mohiva/pyramid/blob/master/LICENSE.textile
  *
  * @category  Mohiva/Pyramid
- * @package   Mohiva/Pyramid/Example/Nodes
+ * @package   Mohiva/Pyramid/Nodes
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-namespace com\mohiva\pyramid\example\nodes;
+namespace com\mohiva\pyramid\nodes;
 
-use com\mohiva\pyramid\nodes\BinaryOperatorNode;
+use com\mohiva\pyramid\Node;
 
 /**
- * Represents a binary exponentiation.
+ * Represents an ternary operator node.
+ *
+ * An ternary operator has an expression, a if and a else node.
  *
  * @category  Mohiva/Pyramid
- * @package   Mohiva/Pyramid/Example/Nodes
+ * @package   Mohiva/Pyramid/Nodes
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-class BinaryPowerNode extends BinaryOperatorNode {
+abstract class TernaryOperatorNode implements Node {
 
 	/**
-	 * Evaluates the node.
+	 * The condition node.
 	 *
-	 * @return number The result of the evaluation.
+	 * @var Node
 	 */
-	public function evaluate() {
+	protected $conditionNode = null;
 
-		return pow($this->left->evaluate(), $this->right->evaluate());
+	/**
+	 * The if node.
+	 *
+	 * @var Node
+	 */
+	protected $ifNode = null;
+
+	/**
+	 * The else node.
+	 *
+	 * @var Node
+	 */
+	protected $elseNode = null;
+
+	/**
+	 * The class constructor.
+	 *
+	 * @param Node $conditionNode The condition node.
+	 * @param Node $ifNode The if node.
+	 * @param Node $elseNode The else node.
+	 */
+	public function __construct(Node $conditionNode, Node $ifNode, Node $elseNode) {
+
+		$this->conditionNode = $conditionNode;
+		$this->ifNode = $ifNode;
+		$this->elseNode = $elseNode;
 	}
 }

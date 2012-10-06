@@ -77,7 +77,26 @@ class LexerTest extends \PHPUnit_Framework_TestCase {
 
 		$actual = $this->buildActualTokens($stream);
 		$expected = array(
-			array(Lexer::T_NONE => '#'),
+			array(Lexer::T_NONE => '#')
+		);
+		$this->assertSame($expected, $actual);
+	}
+
+	/**
+	 * Test the ternary operator.
+	 */
+	public function testTernaryOperator() {
+
+		$lexer = new Lexer();
+		$stream = $lexer->scan(' 1 ? 1 : 2 ');
+
+		$actual = $this->buildActualTokens($stream);
+		$expected = array(
+			array(Lexer::T_NUMBER => '1'),
+			array(Lexer::T_QUESTION_MARK => '?'),
+			array(Lexer::T_NUMBER => '1'),
+			array(Lexer::T_COLON => ':'),
+			array(Lexer::T_NUMBER => '2'),
 		);
 		$this->assertSame($expected, $actual);
 	}
