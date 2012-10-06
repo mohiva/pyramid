@@ -142,7 +142,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 				6)');
 
 		$grammar = new Grammar();
-		$grammar->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 0, TernaryOperator::RIGHT,
+		$grammar->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 1, TernaryOperator::RIGHT,
 			function($condition, $if, $else) { return new TernaryIfNode($condition, $if, $else); }
 		));
 		$grammar->addOperand(new NumberOperand());
@@ -171,7 +171,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 				6)');
 
 		$grammar = new Grammar();
-		$grammar->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 0, TernaryOperator::LEFT,
+		$grammar->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 1, TernaryOperator::LEFT,
 			function($condition, $if, $else) { return new TernaryIfNode($condition, $if, $else); }
 		));
 		$grammar->addOperand(new NumberOperand());
