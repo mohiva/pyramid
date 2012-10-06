@@ -32,6 +32,8 @@ php composer.phar install
 
 Composer comes with an autoloader for all vendor packages. You can use it if you add the following line to your bootstrap file.
 <pre lang="php">
+<?php
+
 require 'vendor/autoload.php';
 </pre>
 
