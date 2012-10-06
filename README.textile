@@ -16,12 +16,12 @@ You can install the library through "composer":http://getcomposer.org.
 </pre>
 
 2. Download and install Composer:
-<pre lang="bash">
+<pre lang="sh">
 curl -s http://getcomposer.org/installer | php
 </pre>
 
 3. Install your dependencies:
-<pre lang="basb">
+<pre lang="sh">
 php composer.phar install
 </pre>
 
