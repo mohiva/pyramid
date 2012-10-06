@@ -10,37 +10,39 @@
  * https://github.com/mohiva/pyramid/blob/master/LICENSE.textile
  *
  * @category  Mohiva/Pyramid
- * @package   Mohiva/Pyramid
+ * @package   Mohiva/Pyramid/Example/Nodes
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-namespace com\mohiva\pyramid;
+namespace com\mohiva\pyramid\example\nodes;
+
+use com\mohiva\pyramid\nodes\TernaryOperatorNode;
 
 /**
- * Represents an operator.
+ * Represents a ternary operation.
  *
  * @category  Mohiva/Pyramid
- * @package   Mohiva/Pyramid
+ * @package   Mohiva/Pyramid/Example/Nodes
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/pyramid/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/pyramid
  */
-interface Operator {
+class TernaryNode extends TernaryOperatorNode {
 
 	/**
-	 * Returns the precedence of the operator.
+	 * Evaluates the node.
 	 *
-	 * @return int The precedence of the operator.
+	 * @return number The result of the evaluation.
 	 */
-	public function getPrecedence();
+	public function evaluate() {
 
-	/**
-	 * Returns the operator node instance for the operator,
-	 *
-	 * @return Node The node instance associated with this operator.
-	 */
-	public function getNode();
+		if ($this->conditionNode->evaluate()) {
+			return $this->ifNode->evaluate();
+		} else {
+			return $this->elseNode->evaluate();
+		}
+	}
 }

@@ -105,6 +105,8 @@ class Parser {
 			$token = $this->stream->current();
 		}
 
+		$node = $this->parseTernary($node, $precedence);
+
 		return $node;
 	}
 
@@ -129,6 +131,50 @@ class Parser {
 			$this->stream->next();
 		} else {
 			throw new SyntaxErrorException('Operand or unary operator expected; but end of stream reached');
+		}
+
+		return $node;
+	}
+
+	/**
+	 * Parse the ternary operator.
+	 *
+	 * @param Node $node The expression node.
+	 * @param int $precedence The precedence level.
+	 * @return Node The ternary operator node or the given expression node.
+	 * @throws SyntaxErrorException if no ternary else can be found after a ternary if.
+	 */
+	private function parseTernary(Node $node, $precedence) {
+
+		/* @var Token $token */
+		$operatorTable = $this->grammar->getOperatorTable();
+		while (($token = $this->stream->current())) {
+			$op = $operatorTable->isTernary($token) ? $operatorTable->getTernaryOperator($token) : null;
+			if ($op === null || $op->getPrecedence() !== $precedence || $op->getIfCode() !== $token->getCode()) {
+				break;
+			}
+
+			$this->stream->next();
+			$opPrecedence = $op->isRightAssociative() ? $op->getPrecedence() : $op->getPrecedence() + 1;
+			$if = $this->parseExpression($opPrecedence);
+
+			$this->stream->expect([$op->getElseCode()], function(Token $current = null) {
+				if ($current) {
+					$near = substr($this->stream->getSource(), 0, $current->getOffset());
+					$message = "Ternary else expected; got `{$current->getValue()}`; near: " . $near;
+				} else {
+					$near = substr($this->stream->getSource(), 0, strlen($this->stream->getSource()));
+					$message = "Ternary else expected but end of stream reached; near: " . $near;
+				}
+
+				throw new SyntaxErrorException($message);
+			});
+
+			$this->stream->next();
+			$else = $this->parseExpression($opPrecedence);
+
+			$operatorNode = $op->getNode();
+			$node = $operatorNode($node, $if, $else);
 		}
 
 		return $node;

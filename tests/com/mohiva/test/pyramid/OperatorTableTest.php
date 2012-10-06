@@ -22,6 +22,7 @@ use com\mohiva\pyramid\Token;
 use com\mohiva\pyramid\OperatorTable;
 use com\mohiva\pyramid\operators\BinaryOperator;
 use com\mohiva\pyramid\operators\UnaryOperator;
+use com\mohiva\pyramid\operators\TernaryOperator;
 
 /**
  * Unit test case for the Mohiva Pyramid project.
@@ -64,6 +65,34 @@ class OperatorTableTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Test the `addOperator` and `getTernaryOperator` accessors for the `if` token.
+	 */
+	public function testTernaryOperatorAccessorsForIfToken() {
+
+		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, function() {});
+		$token = new Token($operator->getIfCode(), '?', 1);
+
+		$table = new OperatorTable();
+		$table->addOperator($operator);
+
+		$this->assertSame($operator, $table->getTernaryOperator($token));
+	}
+
+	/**
+	 * Test the `addOperator` and `getTernaryOperator` accessors for the `else` token.
+	 */
+	public function testTernaryOperatorAccessorsForElseToken() {
+
+		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, function() {});
+		$token = new Token($operator->getElseCode(), ':', 1);
+
+		$table = new OperatorTable();
+		$table->addOperator($operator);
+
+		$this->assertSame($operator, $table->getTernaryOperator($token));
+	}
+
+	/**
 	 * Test if the `addOperator` method throws an exception if an unsupported operator was given.
 	 *
 	 * @expectedException \com\mohiva\pyramid\exceptions\UnsupportedOperatorException
@@ -78,7 +107,7 @@ class OperatorTableTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Test if the `isBinary` method returns true if the operator is an binary operator.
+	 * Test if the `isBinary` method returns true if the given token is a binary operator.
 	 */
 	public function testIsBinaryReturnsTrue() {
 
@@ -92,7 +121,7 @@ class OperatorTableTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Test if the `isBinary` method returns false if the operator isn't an binary operator.
+	 * Test if the `isBinary` method returns false if the given token isn't a binary operator.
 	 */
 	public function testIsBinaryReturnsFalse() {
 
@@ -106,7 +135,7 @@ class OperatorTableTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Test if the `isUnary` method returns true if the operator is an unary operator.
+	 * Test if the `isUnary` method returns true if the given token is an unary operator.
 	 */
 	public function testIsUnaryReturnsTrue() {
 
@@ -120,7 +149,7 @@ class OperatorTableTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Test if the `isUnary` method returns false if the operator isn't an unary operator.
+	 * Test if the `isUnary` method returns false if the given token isn't an unary operator.
 	 */
 	public function testIsUnaryReturnsFalse() {
 
@@ -131,6 +160,49 @@ class OperatorTableTest extends \PHPUnit_Framework_TestCase {
 		$table->addOperator($operator);
 
 		$this->assertFalse($table->isUnary($token));
+	}
+
+	/**
+	 * Test if the `isTernary` method returns true if the given token is the `if` token of a ternary operator.
+	 */
+	public function testIsTernaryReturnsTrueForIfToken() {
+
+		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, function() {});
+		$token = new Token($operator->getIfCode(), '?', 1);
+
+		$table = new OperatorTable();
+		$table->addOperator($operator);
+
+		$this->assertTrue($table->isTernary($token));
+	}
+
+	/**
+	 * Test if the `isTernary` method returns true if the given token is the `else` token of a ternary operator.
+	 */
+	public function testIsTernaryReturnsTrueForElseToken() {
+
+		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, function() {});
+		$token = new Token($operator->getIfCode(), ':', 2);
+
+		$table = new OperatorTable();
+		$table->addOperator($operator);
+
+		$this->assertTrue($table->isTernary($token));
+	}
+
+	/**
+	 * Test if the `isTernary` method returns false if the given token is not the `if` or an `else` token
+	 * of a ternary operator.
+	 */
+	public function testIsTernaryReturnsFalse() {
+
+		$operator = new BinaryOperator(1, 10, BinaryOperator::LEFT, function() {});
+		$token = new Token($operator->getCode(), '+', 1);
+
+		$table = new OperatorTable();
+		$table->addOperator($operator);
+
+		$this->assertFalse($table->isTernary($token));
 	}
 
 	/**
@@ -157,5 +229,18 @@ class OperatorTableTest extends \PHPUnit_Framework_TestCase {
 
 		$table = new OperatorTable();
 		$table->getUnaryOperator($token);
+	}
+
+	/**
+	 * Test if the `getTernaryOperator` method throws an exception if the requested operator doesn't exists.
+	 *
+	 * @expectedException \com\mohiva\pyramid\exceptions\UnsupportedOperatorException
+	 */
+	public function testGetTernaryOperatorThrowsException() {
+
+		$token = new Token(1, '?', 1);
+
+		$table = new OperatorTable();
+		$table->getTernaryOperator($token);
 	}
 }

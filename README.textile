@@ -4,8 +4,9 @@ The Mohiva Pyramid project is an "operator precedence parser":http://en.wikipedi
 
 h2. Installation
 
-You can install the library through "composer":http://getcomposer.org. All you need is to add it as dependency to your composer.json.
+You can install the library through "composer":http://getcomposer.org.
 
+# Add ```mohiva/pyramid``` as a dependency to your ```composer.json``` file:
 <pre lang="js">
 {
     "require": {
@@ -13,6 +14,24 @@ You can install the library through "composer":http://getcomposer.org. All you n
     }
 }
 </pre>
+
+# Download and install Composer:
+<pre lang="shell">
+curl -s http://getcomposer.org/installer | php
+</pre>
+
+# Install your dependencies:
+<pre lang="shell">
+php composer.phar install
+</pre>
+
+# Use Composer's autoloader
+Composer comes with an autoloader for all vendor packages. You can use it if you add the following line to your bootstrap file.
+<pre lang="php">
+require 'vendor/autoload.php';
+</pre>
+
+For more information about composer please visit "getcomposer.org":http://getcomposer.org.
 
 h2. Requirements
 
@@ -23,24 +42,27 @@ h2. How to use
 The library comes with an "example":pyramid/tree/master/src/com/mohiva/pyramid/example of how to use it. This example uses a simple "grammar":pyramid/blob/master/src/com/mohiva/pyramid/example/Grammar.php. It's a very simple calculator with the following precedence table.
 
 |\3. Unary         |
-| - | Negative | 3 |
-| + | Positive | 3 |
+| - | Negative | 4 |
+| + | Positive | 4 |
 
 |\4. Binary                                  |
-| + | Addition       | 0 | left associative  |
-| - | Subtraction    | 0 | left associative  |
-| * | Multiplication | 1 | left associative  |
-| / | Division       | 1 | left associative  |
-| % | Modulo         | 1 | left associative  |
-| ^ | Exponentiation | 2 | right associative |
+| + | Addition       | 1 | left associative  |
+| - | Subtraction    | 1 | left associative  |
+| * | Multiplication | 2 | left associative  |
+| / | Division       | 2 | left associative  |
+| % | Modulo         | 2 | left associative  |
+| ^ | Exponentiation | 3 | right associative |
+
+|\4. Ternary                                 |
+| ?: | Ternary if    | 0 | right associative |
 
 The calculator can deal with "parentheses":pyramid/blob/master/src/com/mohiva/pyramid/example/operands/ParenthesesOperand.php, "integer and floating-point values":pyramid/blob/master/src/com/mohiva/pyramid/example/operands/NumberOperand.php.
 
 So lets talk about the steps to create your own language.
-1. Create your grammar and your precedence table
-2. Create a "Lexer":pyramid/blob/master/src/com/mohiva/pyramid/example/Lexer.php class to tokenize your input
-3. Create your "nodes":pyramid/tree/master/src/com/mohiva/pyramid/example/nodes and "operands":pyramid/tree/master/src/com/mohiva/pyramid/example/operands
-4. Parse it
+# Create your grammar and your precedence table
+# Create a "Lexer":pyramid/blob/master/src/com/mohiva/pyramid/example/Lexer.php class to tokenize your input
+# Create your "nodes":pyramid/tree/master/src/com/mohiva/pyramid/example/nodes and "operands":pyramid/tree/master/src/com/mohiva/pyramid/example/operands
+# Parse it
 
 <pre lang="php">
 <?php
