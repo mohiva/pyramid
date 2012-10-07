@@ -158,8 +158,13 @@ class Parser {
 				: $operator->getPrecedence() + 1;
 
 			// Parse the if expression
-			$this->stream->next();
-			$if = $this->parseExpression($subPrecedence);
+			if ($operator->isShorthandAllowed() && $this->stream->getLookaheadCode() == $operator->getElseCode()) {
+				$this->stream->next();
+				$if = null;
+			} else {
+				$this->stream->next();
+				$if = $this->parseExpression($subPrecedence);
+			}
 
 			// Parse the else expression
 			$this->stream->expect([$operator->getElseCode()], function(Token $current = null) {

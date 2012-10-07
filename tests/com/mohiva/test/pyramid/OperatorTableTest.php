@@ -69,7 +69,7 @@ class OperatorTableTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testTernaryOperatorAccessorsForIfToken() {
 
-		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, function() {});
+		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, true, function() {});
 		$token = new Token($operator->getIfCode(), '?', 1);
 
 		$table = new OperatorTable();
@@ -83,7 +83,7 @@ class OperatorTableTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testTernaryOperatorAccessorsForElseToken() {
 
-		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, function() {});
+		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, true, function() {});
 		$token = new Token($operator->getElseCode(), ':', 1);
 
 		$table = new OperatorTable();
@@ -167,7 +167,7 @@ class OperatorTableTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testIsTernaryReturnsTrueForIfToken() {
 
-		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, function() {});
+		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, true, function() {});
 		$token = new Token($operator->getIfCode(), '?', 1);
 
 		$table = new OperatorTable();
@@ -181,7 +181,7 @@ class OperatorTableTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testIsTernaryReturnsTrueForElseToken() {
 
-		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, function() {});
+		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, true, function() {});
 		$token = new Token($operator->getIfCode(), ':', 2);
 
 		$table = new OperatorTable();

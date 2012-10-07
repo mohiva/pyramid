@@ -25,6 +25,10 @@ use com\mohiva\pyramid\Node;
  *
  * An ternary operator has an expression, a if and a else node.
  *
+ * The ternary operator supports also the shorthand form 1 ?: 2. This means that the middle part of the
+ * expression can be leaved. So if the condition evaluates to true, then the value of the condition will
+ * be used as if part.
+ *
  * @category  Mohiva/Pyramid
  * @package   Mohiva/Pyramid/Nodes
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -42,9 +46,9 @@ abstract class TernaryOperatorNode implements Node {
 	protected $conditionNode = null;
 
 	/**
-	 * The if node.
+	 * The if node or null if the shorthand form is used.
 	 *
-	 * @var Node
+	 * @var Node|null
 	 */
 	protected $ifNode = null;
 
@@ -59,10 +63,10 @@ abstract class TernaryOperatorNode implements Node {
 	 * The class constructor.
 	 *
 	 * @param Node $conditionNode The condition node.
-	 * @param Node $ifNode The if node.
+	 * @param Node|null $ifNode The if node or null if the shorthand form is used.
 	 * @param Node $elseNode The else node.
 	 */
-	public function __construct(Node $conditionNode, Node $ifNode, Node $elseNode) {
+	public function __construct(Node $conditionNode, Node $ifNode = null, Node $elseNode) {
 
 		$this->conditionNode = $conditionNode;
 		$this->ifNode = $ifNode;

@@ -70,6 +70,13 @@ class TernaryOperator implements Operator {
 	private $associativity = null;
 
 	/**
+	 * Indicates if the shorthand ternary operator in the form 1 ?: 2  is allowed or not.
+	 *
+	 * @var boolean
+	 */
+	private $allowShorthand;
+
+	/**
 	 * The closure which instantiates the node object for this operator.
 	 *
 	 * @var Closure
@@ -83,14 +90,16 @@ class TernaryOperator implements Operator {
 	 * @param int $elseCode The token code for the else operator.
 	 * @param int $precedence The precedence of the operator.
 	 * @param int $associativity The associativity of the operator, (LEFT or RIGHT)
+	 * @param boolean $allowShorthand True if the shorthand form is allowed, false otherwise.
 	 * @param Closure $node A closure which instantiates the node object for this operator.
 	 */
-	public function __construct($ifCode, $elseCode, $precedence, $associativity, Closure $node) {
+	public function __construct($ifCode, $elseCode, $precedence, $associativity, $allowShorthand, Closure $node) {
 
 		$this->ifCode = $ifCode;
 		$this->elseCode = $elseCode;
 		$this->precedence = $precedence;
 		$this->associativity = $associativity;
+		$this->allowShorthand = $allowShorthand;
 		$this->node = $node;
 	}
 
@@ -142,6 +151,16 @@ class TernaryOperator implements Operator {
 	public function isRightAssociative() {
 
 		return $this->associativity == self::RIGHT;
+	}
+
+	/**
+	 * Indicates if the shorthand ternary operator in the form 1 ?: 2  is allowed or not.
+	 *
+	 * @return bool True if the shorthand form is allowed, false otherwise.
+	 */
+	public function isShorthandAllowed() {
+
+		return $this->allowShorthand;
 	}
 
 	/**

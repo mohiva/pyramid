@@ -40,18 +40,21 @@ class TernaryOperatorTest extends \PHPUnit_Framework_TestCase {
 		$ifCode = mt_rand(1, 100);
 		$elseCode = mt_rand(1, 100);
 		$precedence = mt_rand(1, 100);
+		$allowShorthand = mt_rand(0, 1);
 		$closure = function() {};
 		$operator = new TernaryOperator(
 			$ifCode,
 			$elseCode,
 			$precedence,
 			TernaryOperator::LEFT,
+			$allowShorthand,
 			$closure
 		);
 
 		$this->assertSame($ifCode, $operator->getIfCode());
 		$this->assertSame($elseCode, $operator->getElseCode());
 		$this->assertSame($precedence, $operator->getPrecedence());
+		$this->assertSame($allowShorthand, $operator->isShorthandAllowed());
 		$this->assertSame($closure, $operator->getNode());
 	}
 
@@ -60,7 +63,7 @@ class TernaryOperatorTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testIsLeftAssociativeReturnsTrue() {
 
-		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::LEFT, function() {});
+		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::LEFT, false, function() {});
 
 		$this->assertTrue($operator->isLeftAssociative());
 	}
@@ -70,7 +73,7 @@ class TernaryOperatorTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testIsLeftAssociativeReturnsFalse() {
 
-		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, function() {});
+		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, false, function() {});
 
 		$this->assertFalse($operator->isLeftAssociative());
 	}
@@ -80,7 +83,7 @@ class TernaryOperatorTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testIsRightAssociativeReturnsTrue() {
 
-		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, function() {});
+		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, false, function() {});
 
 		$this->assertTrue($operator->isRightAssociative());
 	}
@@ -90,8 +93,28 @@ class TernaryOperatorTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testIsRightAssociativeReturnsFalse() {
 
-		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::LEFT, function() {});
+		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::LEFT, false, function() {});
 
 		$this->assertFalse($operator->isRightAssociative());
+	}
+
+	/**
+	 * Test if the method `isShorthandAllowed` returns true.
+	 */
+	public function testIsShorthandAllowedReturnsTrue() {
+
+		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, true, function() {});
+
+		$this->assertTrue($operator->isShorthandAllowed());
+	}
+
+	/**
+	 * Test if the method `isShorthandAllowed` returns false.
+	 */
+	public function testIsShorthandAllowedReturnsFalse() {
+
+		$operator = new TernaryOperator(1, 2, 10, TernaryOperator::RIGHT, false, function() {});
+
+		$this->assertFalse($operator->isShorthandAllowed());
 	}
 }

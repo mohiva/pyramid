@@ -39,7 +39,10 @@ class TernaryIfNode extends TernaryOperatorNode {
 	 */
 	public function evaluate() {
 
-		if ($this->conditionNode->evaluate()) {
+		$condition = $this->conditionNode->evaluate();
+		if ($condition && $this->ifNode === null) {
+			return $condition;
+		} else if ($condition) {
 			return $this->ifNode->evaluate();
 		} else {
 			return $this->elseNode->evaluate();

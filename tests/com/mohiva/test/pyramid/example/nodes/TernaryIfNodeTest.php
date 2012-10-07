@@ -60,4 +60,16 @@ class TernaryIfNodeTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertSame($else, $node->evaluate());
 	}
+
+	/**
+	 * Test if the `evaluate` method returns the correct value for the shorthand form.
+	 */
+	public function testEvaluateShorthand() {
+
+		$condition = 1;
+		$else = 2;
+		$node = new TernaryIfNode(new OperandNode($condition), null, new OperandNode($else));
+
+		$this->assertSame($condition, $node->evaluate());
+	}
 }
