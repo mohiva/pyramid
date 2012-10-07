@@ -142,9 +142,13 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 				6)');
 
 		$grammar = new Grammar();
-		$grammar->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 1, TernaryOperator::RIGHT,
-			function($condition, $if, $else) { return new TernaryIfNode($condition, $if, $else); }
-		));
+		$grammar->addOperator(
+			new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 1, TernaryOperator::RIGHT, false,
+				function($condition, $if, $else) {
+					return new TernaryIfNode($condition, $if, $else);
+				}
+			)
+		);
 		$grammar->addOperand(new NumberOperand());
 		$grammar->addOperand(new ParenthesesOperand());
 
@@ -171,9 +175,13 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 				6)');
 
 		$grammar = new Grammar();
-		$grammar->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 1, TernaryOperator::LEFT,
-			function($condition, $if, $else) { return new TernaryIfNode($condition, $if, $else); }
-		));
+		$grammar->addOperator(
+			new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 1, TernaryOperator::LEFT, false,
+				function($condition, $if, $else) {
+					return new TernaryIfNode($condition, $if, $else);
+				}
+			)
+		);
 		$grammar->addOperand(new NumberOperand());
 		$grammar->addOperand(new ParenthesesOperand());
 
@@ -199,9 +207,13 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 			(0 ? 5 : 6))))');
 
 		$grammar = new Grammar();
-		$grammar->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 0, TernaryOperator::LEFT,
-			function($condition, $if, $else) { return new TernaryIfNode($condition, $if, $else); }
-		));
+		$grammar->addOperator(
+			new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 0, TernaryOperator::LEFT, false,
+				function($condition, $if, $else) {
+					return new TernaryIfNode($condition, $if, $else);
+				}
+			)
+		);
 		$grammar->addOperand(new NumberOperand());
 		$grammar->addOperand(new ParenthesesOperand());
 
@@ -209,6 +221,32 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$node = $parser->parse($stream);
 
 		$this->assertSame('3', $node->evaluate());
+	}
+
+	/**
+	 * Test if the short hand ternary operator can be parsed.
+	 *
+	 * @see http://en.wikipedia.org/wiki/%3F:#PHP
+	 */
+	public function testForShorthandTernaryOperator() {
+
+		$lexer = new Lexer();
+		$stream = $lexer->scan('1 ?: 2');
+
+		$grammar = new Grammar();
+		$grammar->addOperator(
+			new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 1, TernaryOperator::LEFT, true,
+				function($condition, $if, $else) {
+					return new TernaryIfNode($condition, $if, $else);
+				}
+			)
+		);
+		$grammar->addOperand(new NumberOperand());
+
+		$parser = new Parser($grammar);
+		$node = $parser->parse($stream);
+
+		$this->assertSame('1', $node->evaluate());
 	}
 
 	/**
@@ -252,6 +290,30 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$stream = $lexer->scan('1 ? 1');
 
 		$parser = new Parser(new ExampleGrammar());
+		$parser->parse($stream);
+	}
+
+	/**
+	 * Test if the parser throws an exception if the shorthand operator is used when it's not allowed.
+	 *
+	 * @expectedException \com\mohiva\common\exceptions\SyntaxErrorException
+	 */
+	public function testParseTernaryThrowsExceptionIfShorthandIsNotAllowed() {
+
+		$lexer = new Lexer();
+		$stream = $lexer->scan('1 ?: 1');
+
+		$grammar = new Grammar();
+		$grammar->addOperator(
+			new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 1, TernaryOperator::LEFT, false,
+				function($condition, $if, $else) {
+					return new TernaryIfNode($condition, $if, $else);
+				}
+			)
+		);
+		$grammar->addOperand(new NumberOperand());
+
+		$parser = new Parser($grammar);
 		$parser->parse($stream);
 	}
 
