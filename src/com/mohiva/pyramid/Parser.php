@@ -88,8 +88,8 @@ class Parser {
 		/* @var Token $token */
 		$operatorTable = $this->grammar->getOperatorTable();
 		$node = $this->parsePrimary();
-		$token = $this->stream->current();
-		while ($token && $operatorTable->isBinary($token) &&
+		while (($token = $this->stream->current()) &&
+			$operatorTable->isBinary($token) &&
 			$operatorTable->getBinaryOperator($token)->getPrecedence() >= $precedence) {
 
 			$this->stream->next();
@@ -101,8 +101,6 @@ class Parser {
 					? $operator->getPrecedence()
 					: $operator->getPrecedence() + 1
 			));
-
-			$token = $this->stream->current();
 		}
 
 		$node = $this->parseTernary($node, $precedence);
@@ -148,17 +146,23 @@ class Parser {
 
 		/* @var Token $token */
 		$operatorTable = $this->grammar->getOperatorTable();
-		while (($token = $this->stream->current())) {
-			$op = $operatorTable->isTernary($token) ? $operatorTable->getTernaryOperator($token) : null;
-			if ($op === null || $op->getPrecedence() < $precedence || $op->getIfCode() !== $token->getCode()) {
-				break;
-			}
+		while (($token = $this->stream->current()) &&
+			$operatorTable->isTernary($token) &&
+			$operatorTable->getTernaryOperator($token)->getIfCode() == $token->getCode() &&
+			$operatorTable->getTernaryOperator($token)->getPrecedence() >= $precedence) {
 
+			$operator = $operatorTable->getTernaryOperator($token);
+			$operatorNode = $operator->getNode();
+			$subPrecedence = $operator->isRightAssociative()
+				? $operator->getPrecedence()
+				: $operator->getPrecedence() + 1;
+
+			// Parse the if expression
 			$this->stream->next();
-			$opPrecedence = $op->isRightAssociative() ? $op->getPrecedence() : $op->getPrecedence() + 1;
-			$if = $this->parseExpression($opPrecedence);
+			$if = $this->parseExpression($subPrecedence);
 
-			$this->stream->expect([$op->getElseCode()], function(Token $current = null) {
+			// Parse the else expression
+			$this->stream->expect([$operator->getElseCode()], function(Token $current = null) {
 				if ($current) {
 					$near = substr($this->stream->getSource(), 0, $current->getOffset());
 					$message = "Ternary else expected; got `{$current->getValue()}`; near: " . $near;
@@ -171,9 +175,9 @@ class Parser {
 			});
 
 			$this->stream->next();
-			$else = $this->parseExpression($opPrecedence);
+			$else = $this->parseExpression($subPrecedence);
 
-			$operatorNode = $op->getNode();
+			// Create the ternary operator node
 			$node = $operatorNode($node, $if, $else);
 		}
 
