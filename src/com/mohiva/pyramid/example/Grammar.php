@@ -61,7 +61,7 @@ class Grammar extends ParserGrammar {
 		$this->addOperator(new UnaryOperator(Lexer::T_MINUS, 5, function($node) {
 			return new UnaryNegNode($node);
 		}));
-		$this->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 1, TernaryOperator::RIGHT,
+		$this->addOperator(new TernaryOperator(Lexer::T_QUESTION_MARK, Lexer::T_COLON, 1, TernaryOperator::RIGHT, true,
 			function($condition, $if, $else) { return new TernaryIfNode($condition, $if, $else); }
 		));
 		$this->addOperator(new BinaryOperator(Lexer::T_PLUS, 2, BinaryOperator::LEFT, function($left, $right) {
