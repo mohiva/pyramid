@@ -53,6 +53,20 @@ class Parser {
 	private $stream = null;
 
 	/**
+	 * The operator table.
+	 *
+	 * @var OperatorTable
+	 */
+	private $operatorTable = null;
+
+	/**
+	 * The operand table.
+	 *
+	 * @var OperandTable
+	 */
+	private $operandTable = null;
+
+	/**
 	 * The class constructor.
 	 *
 	 * @param Grammar $grammar The grammar used for this parser.
@@ -60,6 +74,8 @@ class Parser {
 	public function  __construct(Grammar $grammar) {
 
 		$this->grammar = $grammar;
+		$this->operatorTable = $this->grammar->getOperatorTable();
+		$this->operandTable = $this->grammar->getOperandTable();
 	}
 
 	/**
@@ -86,15 +102,14 @@ class Parser {
 	private function parseExpression($precedence) {
 
 		/* @var Token $token */
-		$operatorTable = $this->grammar->getOperatorTable();
 		$node = $this->parsePrimary();
-		while (($token = $this->stream->current()) &&
-			$operatorTable->isBinary($token) &&
-			$operatorTable->getBinaryOperator($token)->getPrecedence() >= $precedence) {
+		while (($token = $this->stream->current()) && $this->operatorTable->isBinary($token)) {
+			$operator = $this->operatorTable->getBinaryOperator($token);
+			if ($operator->getPrecedence() < $precedence) {
+				break;
+			}
 
 			$this->stream->next();
-
-			$operator = $operatorTable->getBinaryOperator($token);
 			$operatorNode = $operator->getNode();
 			$node = $operatorNode($node, $this->parseExpression(
 				$operator->isRightAssociative()
@@ -118,10 +133,9 @@ class Parser {
 
 		/* @var Token $token */
 		$token = $this->stream->current();
-		$operatorTable = $this->grammar->getOperatorTable();
-		if ($token && $operatorTable->isUnary($token)) {
+		if ($token && $this->operatorTable->isUnary($token)) {
 			$this->stream->next();
-			$operator = $operatorTable->getUnaryOperator($token);
+			$operator = $this->operatorTable->getUnaryOperator($token);
 			$operatorNode = $operator->getNode();
 			$node = $operatorNode($this->parseExpression($operator->getPrecedence()));
 		} else if ($token) {
@@ -145,13 +159,12 @@ class Parser {
 	private function parseTernary(Node $node, $precedence) {
 
 		/* @var Token $token */
-		$operatorTable = $this->grammar->getOperatorTable();
-		while (($token = $this->stream->current()) &&
-			$operatorTable->isTernary($token) &&
-			$operatorTable->getTernaryOperator($token)->getIfCode() == $token->getCode() &&
-			$operatorTable->getTernaryOperator($token)->getPrecedence() >= $precedence) {
+		while (($token = $this->stream->current()) && $this->operatorTable->isTernary($token)) {
+			$operator = $this->operatorTable->getTernaryOperator($token);
+			if ($operator->getIfCode() != $token->getCode() || $operator->getPrecedence() < $precedence) {
+				break;
+			}
 
-			$operator = $operatorTable->getTernaryOperator($token);
 			$operatorNode = $operator->getNode();
 			$subPrecedence = $operator->isRightAssociative()
 				? $operator->getPrecedence()
@@ -200,10 +213,9 @@ class Parser {
 
 		/* @var Token $token */
 		$token = $this->stream->current();
-		$operandTable = $this->grammar->getOperandTable();
 		try {
 			/* @var Operand $operand */
-			$operand = $operandTable->getOperand($token);
+			$operand = $this->operandTable->getOperand($token);
 		} catch (InvalidIdentifierException $e) {
 			$message = "Cannot find operand parser for token `{$token->getValue()}`";
 			throw new SyntaxErrorException($message, 0, $e);
