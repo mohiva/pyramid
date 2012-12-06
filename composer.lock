@@ -1,11 +1,46 @@
 {
-    "hash": "8f2be4dd90d0cab43765f18ce39a7988",
+    "hash": "b425ff3511e16cd285e5875d021e65b7",
     "packages": [
         {
-            "package": "mohiva/common",
+            "name": "mohiva/common",
             "version": "dev-master",
-            "source-reference": "6db519f8b5df6c63135c69d12bf149e412942664",
-            "commit-date": "1341602421"
+            "source": {
+                "type": "git",
+                "url": "git://github.com/mohiva/common.git",
+                "reference": "1dbbacb162bcf83040e8021cd8934e7a78aab4cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/mohiva/common/archive/1dbbacb162bcf83040e8021cd8934e7a78aab4cd.zip",
+                "reference": "1dbbacb162bcf83040e8021cd8934e7a78aab4cd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "time": "2012-08-30 14:21:33",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "com\\mohiva\\common": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "New BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Kaps",
+                    "email": "christian.kaps@mohiva.com"
+                }
+            ],
+            "description": "A PHP library which provides functionality shared by some mohiva projects",
+            "homepage": "https://github.com/mohiva/common",
+            "keywords": [
+                "library"
+            ]
         }
     ],
     "packages-dev": null,
