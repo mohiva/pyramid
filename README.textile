@@ -1,4 +1,4 @@
-h1. Mohiva Pyramid "!http://travis-ci.org/mohiva/pyramid.png!":http://travis-ci.org/mohiva/pyramid
+h1. Mohiva Pyramid "!https://travis-ci.org/mohiva/pyramid.png!":https://travis-ci.org/mohiva/pyramid
 
 The Mohiva Pyramid project is an "operator precedence parser":http://en.wikipedia.org/wiki/Operator-precedence_parser based on the "Precedence climbing":http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm#climbing algorithm described by "Theodore Norvell":http://www.engr.mun.ca/~theo/.
 
